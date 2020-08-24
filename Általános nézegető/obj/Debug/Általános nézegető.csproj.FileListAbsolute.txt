@@ -1,0 +1,10 @@
+C:\Users\balindattila\source\repos\Nézegető\Általános nézegető\bin\Debug\Általános nézegető.exe.config
+C:\Users\balindattila\source\repos\Nézegető\Általános nézegető\bin\Debug\Általános nézegető.exe
+C:\Users\balindattila\source\repos\Nézegető\Általános nézegető\bin\Debug\Általános nézegető.pdb
+C:\Users\balindattila\source\repos\Nézegető\Általános nézegető\obj\Debug\Általános nézegető.csprojAssemblyReference.cache
+C:\Users\balindattila\source\repos\Nézegető\Általános nézegető\obj\Debug\Általános_nézegető.Properties.Resources.resources
+C:\Users\balindattila\source\repos\Nézegető\Általános nézegető\obj\Debug\Általános nézegető.csproj.GenerateResource.cache
+C:\Users\balindattila\source\repos\Nézegető\Általános nézegető\obj\Debug\Általános nézegető.csproj.CoreCompileInputs.cache
+C:\Users\balindattila\source\repos\Nézegető\Általános nézegető\obj\Debug\Általános nézegető.exe
+C:\Users\balindattila\source\repos\Nézegető\Általános nézegető\obj\Debug\Általános nézegető.pdb
+C:\Users\balindattila\source\repos\Nézegető\Általános nézegető\obj\Debug\Általános_nézegető.Nezegeto.resources
