@@ -31,6 +31,8 @@
             this.serverList = new System.Windows.Forms.ListBox();
             this.tableList = new System.Windows.Forms.ComboBox();
             this.dataGrid = new System.Windows.Forms.DataGridView();
+            this.uptadteBtn = new System.Windows.Forms.Button();
+            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -41,7 +43,7 @@
             this.serverList.ItemHeight = 31;
             this.serverList.Location = new System.Drawing.Point(12, 12);
             this.serverList.Name = "serverList";
-            this.serverList.Size = new System.Drawing.Size(221, 97);
+            this.serverList.Size = new System.Drawing.Size(221, 159);
             this.serverList.TabIndex = 0;
             this.serverList.SelectedIndexChanged += new System.EventHandler(this.serverList_SelectedIndexChanged);
             // 
@@ -58,16 +60,37 @@
             // dataGrid
             // 
             this.dataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGrid.Location = new System.Drawing.Point(12, 301);
+            this.dataGrid.Location = new System.Drawing.Point(12, 245);
             this.dataGrid.Name = "dataGrid";
             this.dataGrid.Size = new System.Drawing.Size(1021, 394);
             this.dataGrid.TabIndex = 3;
+            // 
+            // uptadteBtn
+            // 
+            this.uptadteBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.uptadteBtn.Location = new System.Drawing.Point(12, 645);
+            this.uptadteBtn.Name = "uptadteBtn";
+            this.uptadteBtn.Size = new System.Drawing.Size(1021, 50);
+            this.uptadteBtn.TabIndex = 4;
+            this.uptadteBtn.Text = "Frissítés";
+            this.uptadteBtn.UseVisualStyleBackColor = true;
+            this.uptadteBtn.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // checkedListBox1
+            // 
+            this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Location = new System.Drawing.Point(843, 12);
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.Size = new System.Drawing.Size(190, 199);
+            this.checkedListBox1.TabIndex = 5;
             // 
             // Nezegeto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1045, 707);
+            this.Controls.Add(this.checkedListBox1);
+            this.Controls.Add(this.uptadteBtn);
             this.Controls.Add(this.dataGrid);
             this.Controls.Add(this.tableList);
             this.Controls.Add(this.serverList);
@@ -83,6 +106,8 @@
         private System.Windows.Forms.ListBox serverList;
         private System.Windows.Forms.ComboBox tableList;
         private System.Windows.Forms.DataGridView dataGrid;
+        private System.Windows.Forms.Button uptadteBtn;
+        private System.Windows.Forms.CheckedListBox checkedListBox1;
     }
 }
 
