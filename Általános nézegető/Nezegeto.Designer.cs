@@ -33,6 +33,9 @@
             this.dataGrid = new System.Windows.Forms.DataGridView();
             this.uptadteBtn = new System.Windows.Forms.Button();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.selectColumn = new System.Windows.Forms.Button();
+            this.selectOrder = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -79,16 +82,45 @@
             // checkedListBox1
             // 
             this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(843, 12);
+            this.checkedListBox1.Location = new System.Drawing.Point(549, 12);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(190, 199);
+            this.checkedListBox1.Size = new System.Drawing.Size(190, 169);
             this.checkedListBox1.TabIndex = 5;
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(783, 12);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(196, 173);
+            this.listBox1.TabIndex = 6;
+            // 
+            // selectColumn
+            // 
+            this.selectColumn.Location = new System.Drawing.Point(549, 187);
+            this.selectColumn.Name = "selectColumn";
+            this.selectColumn.Size = new System.Drawing.Size(190, 52);
+            this.selectColumn.TabIndex = 7;
+            this.selectColumn.Text = "Kiválaszt";
+            this.selectColumn.UseVisualStyleBackColor = true;
+            // 
+            // selectOrder
+            // 
+            this.selectOrder.Location = new System.Drawing.Point(783, 187);
+            this.selectOrder.Name = "selectOrder";
+            this.selectOrder.Size = new System.Drawing.Size(196, 52);
+            this.selectOrder.TabIndex = 8;
+            this.selectOrder.Text = "button1";
+            this.selectOrder.UseVisualStyleBackColor = true;
             // 
             // Nezegeto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1045, 707);
+            this.Controls.Add(this.selectOrder);
+            this.Controls.Add(this.selectColumn);
+            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.checkedListBox1);
             this.Controls.Add(this.uptadteBtn);
             this.Controls.Add(this.dataGrid);
@@ -108,6 +140,9 @@
         private System.Windows.Forms.DataGridView dataGrid;
         private System.Windows.Forms.Button uptadteBtn;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Button selectColumn;
+        private System.Windows.Forms.Button selectOrder;
     }
 }
 
