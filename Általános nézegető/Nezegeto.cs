@@ -17,12 +17,14 @@ namespace Általános_nézegető
     {
         private List<string> connectionString = new List<string>();
         private List<string> nameList = new List<string>();
+        private List<string> selectedList = new List<string>();
 
         public Nezegeto()
         {
             InitializeComponent();
             LoadStrings();
             LoadList();
+
             //checkedListBox1.Visible = false;
         }
 
@@ -82,12 +84,15 @@ namespace Általános_nézegető
         }
         private void serverList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            checkedListBox1.Items.Clear();
+            orderList.Items.Clear();
             LoadTableList(connectionString[serverList.SelectedIndex], "SELECT name FROM sys.tables ORDER BY name");
         }
         private void tableList_SelectedIndexChanged(object sender, EventArgs e)
         {
             RefreshGrid(connectionString[serverList.SelectedIndex], "SELECT * FROM " + tableList.Text);
             checkedListBox1.Items.Clear();
+            orderList.Items.Clear();
             ShowColumns(connectionString[serverList.SelectedIndex], "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'" + tableList.Text + "'");
         }
         private void RefreshGrid(string connection, string query)
@@ -111,7 +116,6 @@ namespace Általános_nézegető
         private void button1_Click(object sender, EventArgs e)
         {
             RefreshGrid(connectionString[serverList.SelectedIndex], "SELECT * FROM " + tableList.Text);
-            MessageBox.Show(GetCheckedItems());
         }
         private void ShowColumns(string connection, string query)
         {
@@ -122,6 +126,7 @@ namespace Általános_nézegető
             {
 
                 checkedListBox1.Items.Add(i["COLUMN_NAME"].ToString());
+                orderList.Items.Add(i["COLUMN_NAME"].ToString());
             }
         }
         private string GetCheckedItems() 
@@ -132,9 +137,40 @@ namespace Általános_nézegető
                 if (checkedListBox1.GetItemChecked(i)) 
                 {
                     checkedItems += checkedListBox1.Items[i].ToString()+",";
+                    selectedList.Add(checkedListBox1.Items[i].ToString());
                 }
             }
             return checkedItems.Substring(0,checkedItems.Length-1);
+        }
+        private void selectColumn_Click(object sender, EventArgs e)
+        {
+            GetCheckedItems();
+            LoadOrderList(selectedList);
+        }
+        private void LoadOrderList(List<string> lista) 
+        {
+            orderList.Items.Clear();
+            foreach (var i in lista) 
+            {
+                orderList.Items.Add(i);  
+            }
+        }
+        private bool CheckColumn() 
+        {
+            int sum = 0;
+
+            for (int i = 0; i < checkedListBox1.Items.Count; i++)
+            {
+                if (checkedListBox1.GetItemChecked(i))
+                {
+                    sum++;
+                }
+                if (sum > 0) 
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
