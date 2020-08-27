@@ -132,6 +132,9 @@ namespace Általános_nézegető
         private string GetCheckedItems() 
         {
             string checkedItems = "";
+            if (CheckColumn() == true) 
+            { 
+            
             for (int i = 0; i < checkedListBox1.Items.Count; i++) 
             {
                 if (checkedListBox1.GetItemChecked(i)) 
@@ -141,19 +144,24 @@ namespace Általános_nézegető
                 }
             }
             return checkedItems.Substring(0,checkedItems.Length-1);
+            }
+        return "*";
         }
         private void selectColumn_Click(object sender, EventArgs e)
         {
             GetCheckedItems();
+          //  MessageBox.Show(GetCheckedItems());
             LoadOrderList(selectedList);
         }
         private void LoadOrderList(List<string> lista) 
         {
             orderList.Items.Clear();
+
             foreach (var i in lista) 
             {
                 orderList.Items.Add(i);  
             }
+            
         }
         private bool CheckColumn() 
         {
