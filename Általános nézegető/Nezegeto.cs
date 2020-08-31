@@ -18,14 +18,18 @@ namespace Általános_nézegető
         private List<string> connectionString = new List<string>();
         private List<string> nameList = new List<string>();
         private List<string> selectedList = new List<string>();
+        private List<string> columnList = new List<string>();
+        private string checkedItems = "";
+        
 
         public Nezegeto()
         {
+            
             InitializeComponent();
             LoadStrings();
             LoadList();
-
-            //checkedListBox1.Visible = false;
+            DisableAll();
+            
         }
 
         private void LoadStrings()
@@ -84,6 +88,8 @@ namespace Általános_nézegető
         }
         private void serverList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            columnList.Clear();
+            selectedList.Clear();
             checkedListBox1.Items.Clear();
             orderList.Items.Clear();
             LoadTableList(connectionString[serverList.SelectedIndex], "SELECT name FROM sys.tables ORDER BY name");
@@ -94,6 +100,8 @@ namespace Általános_nézegető
             checkedListBox1.Items.Clear();
             orderList.Items.Clear();
             ShowColumns(connectionString[serverList.SelectedIndex], "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'" + tableList.Text + "'");
+            checkedListBox1.Enabled = true;
+            selectColumn.Enabled = true;
         }
         private void RefreshGrid(string connection, string query)
         {
@@ -112,10 +120,11 @@ namespace Általános_nézegető
             {
                 tableList.Items.Add(i["name"].ToString());
             }
+            
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            RefreshGrid(connectionString[serverList.SelectedIndex], "SELECT * FROM " + tableList.Text);
+            RefreshGrid(connectionString[serverList.SelectedIndex], /*"SELECT * FROM " + tableList.Text*/BuildQuery());
         }
         private void ShowColumns(string connection, string query)
         {
@@ -124,14 +133,14 @@ namespace Általános_nézegető
             LoadGridView(connection, query).Fill(dt);
             foreach (DataRow i in dt.Rows)
             {
-
                 checkedListBox1.Items.Add(i["COLUMN_NAME"].ToString());
                 orderList.Items.Add(i["COLUMN_NAME"].ToString());
+                columnList.Add(i["COLUMN_NAME"].ToString());   // ide írtam bele
             }
         }
         private string GetCheckedItems() 
         {
-            string checkedItems = "";
+            checkedItems = "";
             if (CheckColumn() == true) 
             { 
             
@@ -143,15 +152,26 @@ namespace Általános_nézegető
                     selectedList.Add(checkedListBox1.Items[i].ToString());
                 }
             }
-            return checkedItems.Substring(0,checkedItems.Length-1);
+            checkedItems = checkedItems.Substring(0, checkedItems.Length - 1);
+                return checkedItems;
             }
         return "*";
         }
         private void selectColumn_Click(object sender, EventArgs e)
         {
-            GetCheckedItems();
-          //  MessageBox.Show(GetCheckedItems());
-            LoadOrderList(selectedList);
+            orderList.Items.Clear();
+            if (GetCheckedItems() == "*")
+            {
+               LoadOrderList(columnList);
+            }
+            else 
+            { 
+            LoadOrderList(columnList); //LoadOrderList(selectedList);
+            }
+            orderList.SelectedIndex = 0;
+            orderList.Enabled = true;
+            descOrderCheckBox.Enabled = true;
+            updateBtn.Enabled = true;
         }
         private void LoadOrderList(List<string> lista) 
         {
@@ -179,6 +199,34 @@ namespace Általános_nézegető
                 }
             }
             return false;
+        }
+        private string BuildQuery()
+        {
+            string query = "SELECT ";
+            if (checkedItems == "")
+            {
+                MessageBox.Show("Bejöttem");
+                query += "*";
+            }
+            else
+            {
+                query += checkedItems;
+            }
+            query += " FROM "+tableList.Text;
+            query += " ORDER BY " + orderList.SelectedItem;
+            if (descOrderCheckBox.Checked) 
+            {
+                query += " DESC";
+            }
+            return query;
+        }
+        private void DisableAll() 
+        {
+            checkedListBox1.Enabled = false;
+            selectColumn.Enabled = false;
+            orderList.Enabled = false;
+            descOrderCheckBox.Enabled = false;
+            updateBtn.Enabled = false;
         }
     }
 }

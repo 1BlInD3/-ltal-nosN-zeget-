@@ -31,11 +31,11 @@
             this.serverList = new System.Windows.Forms.ListBox();
             this.tableList = new System.Windows.Forms.ComboBox();
             this.dataGrid = new System.Windows.Forms.DataGridView();
-            this.uptadteBtn = new System.Windows.Forms.Button();
+            this.updateBtn = new System.Windows.Forms.Button();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.orderList = new System.Windows.Forms.ListBox();
             this.selectColumn = new System.Windows.Forms.Button();
-            this.selectOrder = new System.Windows.Forms.Button();
+            this.descOrderCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,6 +52,8 @@
             // 
             // tableList
             // 
+            this.tableList.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.tableList.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.tableList.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.tableList.FormattingEnabled = true;
             this.tableList.Location = new System.Drawing.Point(267, 12);
@@ -68,16 +70,16 @@
             this.dataGrid.Size = new System.Drawing.Size(1021, 394);
             this.dataGrid.TabIndex = 3;
             // 
-            // uptadteBtn
+            // updateBtn
             // 
-            this.uptadteBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.uptadteBtn.Location = new System.Drawing.Point(12, 645);
-            this.uptadteBtn.Name = "uptadteBtn";
-            this.uptadteBtn.Size = new System.Drawing.Size(1021, 50);
-            this.uptadteBtn.TabIndex = 4;
-            this.uptadteBtn.Text = "Frissítés";
-            this.uptadteBtn.UseVisualStyleBackColor = true;
-            this.uptadteBtn.Click += new System.EventHandler(this.button1_Click);
+            this.updateBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.updateBtn.Location = new System.Drawing.Point(12, 645);
+            this.updateBtn.Name = "updateBtn";
+            this.updateBtn.Size = new System.Drawing.Size(1021, 50);
+            this.updateBtn.TabIndex = 4;
+            this.updateBtn.Text = "Frissítés";
+            this.updateBtn.UseVisualStyleBackColor = true;
+            this.updateBtn.Click += new System.EventHandler(this.button1_Click);
             // 
             // checkedListBox1
             // 
@@ -97,6 +99,7 @@
             // 
             // selectColumn
             // 
+            this.selectColumn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.selectColumn.Location = new System.Drawing.Point(549, 187);
             this.selectColumn.Name = "selectColumn";
             this.selectColumn.Size = new System.Drawing.Size(190, 52);
@@ -105,25 +108,27 @@
             this.selectColumn.UseVisualStyleBackColor = true;
             this.selectColumn.Click += new System.EventHandler(this.selectColumn_Click);
             // 
-            // selectOrder
+            // descOrderCheckBox
             // 
-            this.selectOrder.Location = new System.Drawing.Point(783, 187);
-            this.selectOrder.Name = "selectOrder";
-            this.selectOrder.Size = new System.Drawing.Size(196, 52);
-            this.selectOrder.TabIndex = 8;
-            this.selectOrder.Text = "button1";
-            this.selectOrder.UseVisualStyleBackColor = true;
+            this.descOrderCheckBox.AutoSize = true;
+            this.descOrderCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.descOrderCheckBox.Location = new System.Drawing.Point(783, 198);
+            this.descOrderCheckBox.Name = "descOrderCheckBox";
+            this.descOrderCheckBox.Size = new System.Drawing.Size(183, 28);
+            this.descOrderCheckBox.TabIndex = 8;
+            this.descOrderCheckBox.Text = "Csökkenő sorrend";
+            this.descOrderCheckBox.UseVisualStyleBackColor = true;
             // 
             // Nezegeto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1045, 707);
-            this.Controls.Add(this.selectOrder);
+            this.Controls.Add(this.descOrderCheckBox);
             this.Controls.Add(this.selectColumn);
             this.Controls.Add(this.orderList);
             this.Controls.Add(this.checkedListBox1);
-            this.Controls.Add(this.uptadteBtn);
+            this.Controls.Add(this.updateBtn);
             this.Controls.Add(this.dataGrid);
             this.Controls.Add(this.tableList);
             this.Controls.Add(this.serverList);
@@ -131,6 +136,7 @@
             this.Text = "Nézegető";
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -139,11 +145,11 @@
         private System.Windows.Forms.ListBox serverList;
         private System.Windows.Forms.ComboBox tableList;
         private System.Windows.Forms.DataGridView dataGrid;
-        private System.Windows.Forms.Button uptadteBtn;
+        private System.Windows.Forms.Button updateBtn;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
         private System.Windows.Forms.ListBox orderList;
         private System.Windows.Forms.Button selectColumn;
-        private System.Windows.Forms.Button selectOrder;
+        private System.Windows.Forms.CheckBox descOrderCheckBox;
     }
 }
 
