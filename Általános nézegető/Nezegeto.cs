@@ -96,9 +96,9 @@ namespace Általános_nézegető
         }
         private void tableList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            RefreshGrid(connectionString[serverList.SelectedIndex], "SELECT * FROM " + tableList.Text);
             checkedListBox1.Items.Clear();
             orderList.Items.Clear();
+            RefreshGrid(connectionString[serverList.SelectedIndex], "SELECT * FROM " + tableList.Text);
             ShowColumns(connectionString[serverList.SelectedIndex], "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'" + tableList.Text + "'");
             checkedListBox1.Enabled = true;
             selectColumn.Enabled = true;
@@ -205,7 +205,6 @@ namespace Általános_nézegető
             string query = "SELECT ";
             if (checkedItems == "")
             {
-                MessageBox.Show("Bejöttem");
                 query += "*";
             }
             else
