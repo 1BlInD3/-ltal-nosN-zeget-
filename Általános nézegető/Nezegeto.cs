@@ -88,6 +88,7 @@ namespace Általános_nézegető
         }
         private void serverList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            DisableAll();
             columnList.Clear();
             selectedList.Clear();
             checkedListBox1.Items.Clear();
@@ -98,6 +99,7 @@ namespace Általános_nézegető
         {
             checkedListBox1.Items.Clear();
             orderList.Items.Clear();
+            columnList.Clear(); //2
             RefreshGrid(connectionString[serverList.SelectedIndex], "SELECT * FROM " + tableList.Text);
             ShowColumns(connectionString[serverList.SelectedIndex], "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'" + tableList.Text + "'");
             checkedListBox1.Enabled = true;

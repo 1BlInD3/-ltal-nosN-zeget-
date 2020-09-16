@@ -132,7 +132,9 @@
             this.Controls.Add(this.dataGrid);
             this.Controls.Add(this.tableList);
             this.Controls.Add(this.serverList);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Nezegeto";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Nézegető";
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();
             this.ResumeLayout(false);
