@@ -84,7 +84,6 @@ namespace Általános_nézegető
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
             sqlConnection.Close();
             return sqlDataAdapter;
-
         }
         private void serverList_SelectedIndexChanged(object sender, EventArgs e)
         {
