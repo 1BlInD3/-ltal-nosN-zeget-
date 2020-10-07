@@ -39,7 +39,7 @@ namespace Általános_nézegető
 
 
             XmlDocument doc = new XmlDocument();
-            doc.Load(@"C:\Users\balindattila\source\repos\Nézegető\Általános nézegető\AppCon.xml");
+            doc.Load("AppCon.xml");
 
             foreach (XmlNode node in doc.DocumentElement)
             {

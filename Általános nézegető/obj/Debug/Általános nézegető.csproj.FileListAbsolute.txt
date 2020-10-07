@@ -8,3 +8,13 @@ C:\Users\balindattila\source\repos\Nézegető\Általános nézegető\obj\Debug\�
 C:\Users\balindattila\source\repos\Nézegető\Általános nézegető\obj\Debug\Általános nézegető.exe
 C:\Users\balindattila\source\repos\Nézegető\Általános nézegető\obj\Debug\Általános nézegető.pdb
 C:\Users\balindattila\source\repos\Nézegető\Általános nézegető\obj\Debug\Általános_nézegető.Nezegeto.resources
+W:\Attila_programok\Nezegeto\Általános nézegető\bin\Debug\Általános nézegető.exe.config
+W:\Attila_programok\Nezegeto\Általános nézegető\bin\Debug\Általános nézegető.exe
+W:\Attila_programok\Nezegeto\Általános nézegető\bin\Debug\Általános nézegető.pdb
+W:\Attila_programok\Nezegeto\Általános nézegető\obj\Debug\Általános nézegető.csprojAssemblyReference.cache
+W:\Attila_programok\Nezegeto\Általános nézegető\obj\Debug\Általános_nézegető.Nezegeto.resources
+W:\Attila_programok\Nezegeto\Általános nézegető\obj\Debug\Általános_nézegető.Properties.Resources.resources
+W:\Attila_programok\Nezegeto\Általános nézegető\obj\Debug\Általános nézegető.csproj.GenerateResource.cache
+W:\Attila_programok\Nezegeto\Általános nézegető\obj\Debug\Általános nézegető.csproj.CoreCompileInputs.cache
+W:\Attila_programok\Nezegeto\Általános nézegető\obj\Debug\Általános nézegető.exe
+W:\Attila_programok\Nezegeto\Általános nézegető\obj\Debug\Általános nézegető.pdb
