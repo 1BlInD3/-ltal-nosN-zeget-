@@ -35,9 +35,6 @@ namespace Általános_nézegető
 
         private void LoadStrings()
         {
-            //ConnectionString connectionString = new ConnectionString();
-
-
             XmlDocument doc = new XmlDocument();
             doc.Load("AppCon.xml");
 
@@ -45,29 +42,10 @@ namespace Általános_nézegető
             {
                 string connString = node.Attributes[0].Value;
                 string name = node.Attributes[1].Value;
-                // connectionString.connectionString.Add(node.Attributes[0].Value);
-                // connectionString.name.Add(node.Attributes[1].Value);
                 connectionString.Add(connString);
                 nameList.Add(name);
-                // MessageBox.Show(name);
 
             }
-
-            /*  XmlDocument doc = new XmlDocument();
-              doc.Load(@"C:\Users\balindattila\source\repos\Nézegető\Általános nézegető\AppCon.xml");
-
-              foreach (XmlNode node in doc.DocumentElement) 
-              { 
-                  serverList.Items.Add(node.Attributes[0].InnerText);
-
-                  foreach (XmlNode child in doc.ChildNodes) 
-                  {
-                      //connectionStrings.Items.Add(child.InnerText);
-                      connectionString.Add(child.InnerText);
-
-                  }
-              }*/
-
         }
         private void LoadList()
         {
@@ -93,7 +71,9 @@ namespace Általános_nézegető
             selectedList.Clear();
             checkedListBox1.Items.Clear();
             orderList.Items.Clear();
-            LoadTableList(connectionString[serverList.SelectedIndex], "SELECT name FROM sys.tables ORDER BY name");
+            MessageBox.Show(connectionString[serverList.SelectedIndex]);
+            //LoadTableList(connectionString[serverList.SelectedIndex], "SELECT name FROM sys.tables ORDER BY name");
+           // LoadDbList(connectionString[serverList.SelectedIndex], "SELECT name FROM sys.databases ORDER BY name");
         }
         private void tableList_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -228,6 +208,24 @@ namespace Általános_nézegető
             orderList.Enabled = false;
             descOrderCheckBox.Enabled = false;
             updateBtn.Enabled = false;
+        }
+        private void LoadDbList(string connection, string query)
+        { 
+            dataGrid.DataSource = null;
+            dbLoad.Text = "";
+            dbLoad.Items.Clear();
+            DataTable dt = new DataTable();
+            LoadGridView(connection, query).Fill(dt);
+            foreach (DataRow i in dt.Rows)
+            {
+                dbLoad.Items.Add(i["name"].ToString());
+            }
+        }
+        private void dbLoad_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string connString = connectionString[serverList.SelectedIndex];
+            MessageBox.Show(connString);
+            // LoadTableList(connectionString[serverList.SelectedIndex], "SELECT name FROM  ORDER BY name");
         }
     }
 }
