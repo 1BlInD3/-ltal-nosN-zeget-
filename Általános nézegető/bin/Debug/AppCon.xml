@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <root>
-	<ConnectionStrings connentionString =" Data Source=10.0.0.18;Initial Catalog=EllenallasMeres;Persist Security Info=True;User ID=MvWrite;Password=Mv2019 " name =" SQL"/>
-	<ConnectionStrings connentionString =" Data Source=scala1;Initial Catalog=Fusetech;Persist Security Info=True;User ID=scala_read;Password=scala_read " name =" Scala1"/>
+	<ConnectionStrings connentionString =" Data Source=10.0.0.18;Persist Security Info=True;User ID=MvWrite;Password=Mv2019 " name =" SQL"/>
+	<ConnectionStrings connentionString =" Data Source=scala1;Persist Security Info=True;User ID=scala_read;Password=scala_read " name =" Scala12"/>
 
 </root>

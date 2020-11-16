@@ -21,19 +21,20 @@ namespace Általános_nézegető
         private List<string> selectedList = new List<string>();
         private List<string> columnList = new List<string>();
         private string checkedItems = "";
-        
+        private string connString = "";
+
+
 
         public Nezegeto()
         {
             
             InitializeComponent();
-            LoadStrings();
+            LoadXml();
             LoadList();
             DisableAll();
             
         }
-
-        private void LoadStrings()
+        private void LoadXml()
         {
             XmlDocument doc = new XmlDocument();
             doc.Load("AppCon.xml");
@@ -71,17 +72,43 @@ namespace Általános_nézegető
             selectedList.Clear();
             checkedListBox1.Items.Clear();
             orderList.Items.Clear();
-            MessageBox.Show(connectionString[serverList.SelectedIndex]);
+            tableList.Items.Clear();
+            datumList.Items.Clear();
+            // MessageBox.Show(connectionString[serverList.SelectedIndex]);
             //LoadTableList(connectionString[serverList.SelectedIndex], "SELECT name FROM sys.tables ORDER BY name");
-           // LoadDbList(connectionString[serverList.SelectedIndex], "SELECT name FROM sys.databases ORDER BY name");
+            LoadDbList(connectionString[serverList.SelectedIndex], "SELECT name FROM sys.databases ORDER BY name");
+            tableList.Text = "";
+        }
+        private void LoadDbList(string connection, string query)
+        {
+            dataGrid.DataSource = null;
+            dbLoad.Text = "";
+            dbLoad.Items.Clear();
+            DataTable dt = new DataTable();
+            LoadGridView(connection, query).Fill(dt);
+            foreach (DataRow i in dt.Rows)
+            {
+                dbLoad.Items.Add(i["name"].ToString());
+            }
+        }
+        private void dbLoad_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tableList.Enabled = true;
+            connString = connectionString[serverList.SelectedIndex].Substring(0, connectionString[serverList.SelectedIndex].IndexOf(';')) + ";Initial Catalog = " + dbLoad.Text + connectionString[serverList.SelectedIndex].Substring(connectionString[serverList.SelectedIndex].IndexOf(';'));
+            MessageBox.Show(connString);
+            LoadTableList(connString, "SELECT name FROM sys.tables ORDER BY name");
         }
         private void tableList_SelectedIndexChanged(object sender, EventArgs e)
         {
             checkedListBox1.Items.Clear();
             orderList.Items.Clear();
             columnList.Clear(); //2
-            RefreshGrid(connectionString[serverList.SelectedIndex], "SELECT * FROM " + tableList.Text);
-            ShowColumns(connectionString[serverList.SelectedIndex], "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'" + tableList.Text + "'");
+            datumList.Items.Clear();
+            RefreshGrid(connString, "SELECT * FROM " + tableList.Text);
+            checkedListBox1.Enabled = true;
+            selectColumn.Enabled = true;
+            ShowColumns(connString, "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME ='" + tableList.Text + "'");
+            ShowDate(connString, "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + tableList.Text + "' AND (DATA_TYPE = 'date' OR DATA_TYPE = 'datetime')");
             checkedListBox1.Enabled = true;
             selectColumn.Enabled = true;
         }
@@ -97,16 +124,24 @@ namespace Általános_nézegető
             tableList.Text = "";
             tableList.Items.Clear();
             DataTable dt = new DataTable();
-            LoadGridView(connection, query).Fill(dt);
-            foreach (DataRow i in dt.Rows)
+            try
             {
-                tableList.Items.Add(i["name"].ToString());
+                LoadGridView(connString, query).Fill(dt);
+                foreach (DataRow i in dt.Rows)
+                {
+                    tableList.Items.Add(i["name"].ToString());
+                }
             }
-            
+            catch 
+            {
+                MessageBox.Show("Nincs jogosultságod megnyitni a táblát!");
+            }
+
+
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            RefreshGrid(connectionString[serverList.SelectedIndex], /*"SELECT * FROM " + tableList.Text*/BuildQuery());
+            RefreshGrid(connString, /*"SELECT * FROM " + tableList.Text*/BuildQuery());
         }
         private void ShowColumns(string connection, string query)
         {
@@ -118,6 +153,15 @@ namespace Általános_nézegető
                 checkedListBox1.Items.Add(i["COLUMN_NAME"].ToString());
                 orderList.Items.Add(i["COLUMN_NAME"].ToString());
                 columnList.Add(i["COLUMN_NAME"].ToString());   // ide írtam bele
+            }
+        }
+        private void ShowDate(string connection, string query)
+        {
+            DataTable dt = new DataTable();
+            LoadGridView(connection, query).Fill(dt);
+            foreach (DataRow i in dt.Rows)
+            {
+                datumList.Items.Add(i["COLUMN_NAME"].ToString());
             }
         }
         private string GetCheckedItems() 
@@ -145,10 +189,15 @@ namespace Általános_nézegető
             if (GetCheckedItems() == "*")
             {
                LoadOrderList(columnList);
+                for (int i = 0; i < checkedListBox1.Items.Count; i++)
+                {
+                    checkedListBox1.SetItemChecked(i, true);
+                }
             }
             else 
             { 
             LoadOrderList(columnList); //LoadOrderList(selectedList);
+                
             }
             orderList.SelectedIndex = 0;
             orderList.Enabled = true;
@@ -208,24 +257,41 @@ namespace Általános_nézegető
             orderList.Enabled = false;
             descOrderCheckBox.Enabled = false;
             updateBtn.Enabled = false;
+            tableList.Enabled = false;
         }
-        private void LoadDbList(string connection, string query)
-        { 
-            dataGrid.DataSource = null;
-            dbLoad.Text = "";
-            dbLoad.Items.Clear();
-            DataTable dt = new DataTable();
-            LoadGridView(connection, query).Fill(dt);
-            foreach (DataRow i in dt.Rows)
-            {
-                dbLoad.Items.Add(i["name"].ToString());
-            }
-        }
-        private void dbLoad_SelectedIndexChanged(object sender, EventArgs e)
+        private void CopyToClipBoard(DataGridView dataGrid)
         {
-            string connString = connectionString[serverList.SelectedIndex];
-            MessageBox.Show(connString);
-            // LoadTableList(connectionString[serverList.SelectedIndex], "SELECT name FROM  ORDER BY name");
+            dataGrid.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
+            dataGrid.MultiSelect = true;
+            dataGrid.SelectAll();
+
+            //dataGridView1.SelectAll();
+            DataObject dataObject = dataGrid.GetClipboardContent();
+            if (dataObject != null)
+                Clipboard.SetDataObject(dataObject);
+        }
+        private void GenerateExcel()
+        {
+            Microsoft.Office.Interop.Excel.Application xexcel;
+            Microsoft.Office.Interop.Excel.Workbook xWorkBook;
+            Microsoft.Office.Interop.Excel.Worksheet xWorkSheet;
+            object misValue = System.Reflection.Missing.Value;
+            xexcel = new Microsoft.Office.Interop.Excel.Application();
+            xexcel.Visible = true;
+            xWorkBook = xexcel.Workbooks.Add(misValue);
+            xWorkSheet = (Microsoft.Office.Interop.Excel.Worksheet)xWorkBook.Worksheets.get_Item(1);
+            Microsoft.Office.Interop.Excel.Range CR = (Microsoft.Office.Interop.Excel.Range)xWorkSheet.Cells[1, 1];
+            CR.Select();
+            xWorkSheet.PasteSpecial(CR, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, true);
+
+            xWorkBook.Close();
+            xexcel.Quit();
+
+        }
+        private void ExcelBtn_Click(object sender, EventArgs e)
+        {
+            CopyToClipBoard(dataGrid);
+            GenerateExcel();
         }
     }
 }
