@@ -46,9 +46,11 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.fromDate = new System.Windows.Forms.DateTimePicker();
+            this.toDate = new System.Windows.Forms.DateTimePicker();
+            this.setDayCheck = new System.Windows.Forms.CheckBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.viewBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,17 +61,17 @@
             this.serverList.ItemHeight = 31;
             this.serverList.Location = new System.Drawing.Point(12, 42);
             this.serverList.Name = "serverList";
-            this.serverList.Size = new System.Drawing.Size(221, 221);
+            this.serverList.Size = new System.Drawing.Size(221, 345);
             this.serverList.TabIndex = 0;
             this.serverList.SelectedIndexChanged += new System.EventHandler(this.serverList_SelectedIndexChanged);
             // 
             // tableList
             // 
-            this.tableList.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.tableList.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.tableList.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.tableList.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.tableList.FormattingEnabled = true;
-            this.tableList.Location = new System.Drawing.Point(276, 229);
+            this.tableList.Location = new System.Drawing.Point(276, 166);
             this.tableList.Name = "tableList";
             this.tableList.Size = new System.Drawing.Size(248, 33);
             this.tableList.TabIndex = 2;
@@ -78,17 +80,17 @@
             // dataGrid
             // 
             this.dataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGrid.Location = new System.Drawing.Point(12, 287);
+            this.dataGrid.Location = new System.Drawing.Point(12, 432);
             this.dataGrid.Name = "dataGrid";
-            this.dataGrid.Size = new System.Drawing.Size(1183, 352);
+            this.dataGrid.Size = new System.Drawing.Size(1388, 407);
             this.dataGrid.TabIndex = 3;
             // 
             // updateBtn
             // 
             this.updateBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.updateBtn.Location = new System.Drawing.Point(12, 645);
+            this.updateBtn.Location = new System.Drawing.Point(12, 845);
             this.updateBtn.Name = "updateBtn";
-            this.updateBtn.Size = new System.Drawing.Size(1183, 50);
+            this.updateBtn.Size = new System.Drawing.Size(1388, 50);
             this.updateBtn.TabIndex = 4;
             this.updateBtn.Text = "Frissítés";
             this.updateBtn.UseVisualStyleBackColor = true;
@@ -96,24 +98,27 @@
             // 
             // checkedListBox1
             // 
+            this.checkedListBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkedListBox1.FormattingEnabled = true;
             this.checkedListBox1.Location = new System.Drawing.Point(576, 42);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(190, 169);
+            this.checkedListBox1.Size = new System.Drawing.Size(190, 274);
             this.checkedListBox1.TabIndex = 5;
             // 
             // orderList
             // 
+            this.orderList.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.orderList.FormattingEnabled = true;
-            this.orderList.Location = new System.Drawing.Point(792, 42);
+            this.orderList.ItemHeight = 20;
+            this.orderList.Location = new System.Drawing.Point(896, 42);
             this.orderList.Name = "orderList";
-            this.orderList.Size = new System.Drawing.Size(190, 173);
+            this.orderList.Size = new System.Drawing.Size(190, 264);
             this.orderList.TabIndex = 6;
             // 
             // selectColumn
             // 
             this.selectColumn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.selectColumn.Location = new System.Drawing.Point(576, 229);
+            this.selectColumn.Location = new System.Drawing.Point(576, 354);
             this.selectColumn.Name = "selectColumn";
             this.selectColumn.Size = new System.Drawing.Size(190, 52);
             this.selectColumn.TabIndex = 7;
@@ -125,7 +130,7 @@
             // 
             this.descOrderCheckBox.AutoSize = true;
             this.descOrderCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.descOrderCheckBox.Location = new System.Drawing.Point(792, 242);
+            this.descOrderCheckBox.Location = new System.Drawing.Point(903, 378);
             this.descOrderCheckBox.Name = "descOrderCheckBox";
             this.descOrderCheckBox.Size = new System.Drawing.Size(183, 28);
             this.descOrderCheckBox.TabIndex = 8;
@@ -134,6 +139,8 @@
             // 
             // dbLoad
             // 
+            this.dbLoad.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.dbLoad.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.dbLoad.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dbLoad.FormattingEnabled = true;
             this.dbLoad.Location = new System.Drawing.Point(276, 42);
@@ -145,7 +152,7 @@
             // ExcelBtn
             // 
             this.ExcelBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ExcelBtn.Location = new System.Drawing.Point(1005, 229);
+            this.ExcelBtn.Location = new System.Drawing.Point(1210, 354);
             this.ExcelBtn.Name = "ExcelBtn";
             this.ExcelBtn.Size = new System.Drawing.Size(190, 52);
             this.ExcelBtn.TabIndex = 10;
@@ -155,10 +162,12 @@
             // 
             // datumList
             // 
+            this.datumList.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.datumList.FormattingEnabled = true;
-            this.datumList.Location = new System.Drawing.Point(1005, 42);
+            this.datumList.ItemHeight = 20;
+            this.datumList.Location = new System.Drawing.Point(1210, 42);
             this.datumList.Name = "datumList";
-            this.datumList.Size = new System.Drawing.Size(190, 56);
+            this.datumList.Size = new System.Drawing.Size(190, 124);
             this.datumList.TabIndex = 11;
             // 
             // label1
@@ -185,7 +194,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(272, 202);
+            this.label3.Location = new System.Drawing.Point(272, 139);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(106, 24);
             this.label3.TabIndex = 14;
@@ -205,7 +214,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(790, 15);
+            this.label5.Location = new System.Drawing.Point(894, 15);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(104, 24);
             this.label5.TabIndex = 16;
@@ -215,49 +224,75 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(1001, 15);
+            this.label6.Location = new System.Drawing.Point(1206, 9);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(136, 24);
             this.label6.TabIndex = 17;
             this.label6.Text = "Dátum szerint";
             // 
-            // dateTimePicker1
+            // fromDate
             // 
-            this.dateTimePicker1.CustomFormat = "yyyy.MM.dd";
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(1005, 108);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(190, 20);
-            this.dateTimePicker1.TabIndex = 18;
+            this.fromDate.CustomFormat = "yyyy.MM.dd";
+            this.fromDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fromDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.fromDate.Location = new System.Drawing.Point(1210, 202);
+            this.fromDate.Name = "fromDate";
+            this.fromDate.Size = new System.Drawing.Size(190, 26);
+            this.fromDate.TabIndex = 18;
             // 
-            // dateTimePicker2
+            // toDate
             // 
-            this.dateTimePicker2.CustomFormat = "yyyy.MM.dd";
-            this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker2.Location = new System.Drawing.Point(1005, 152);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(190, 20);
-            this.dateTimePicker2.TabIndex = 19;
+            this.toDate.CustomFormat = "yyyy.MM.dd";
+            this.toDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.toDate.Location = new System.Drawing.Point(1210, 256);
+            this.toDate.Name = "toDate";
+            this.toDate.Size = new System.Drawing.Size(190, 26);
+            this.toDate.TabIndex = 19;
             // 
-            // checkBox1
+            // setDayCheck
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.checkBox1.Location = new System.Drawing.Point(1005, 187);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(120, 28);
-            this.checkBox1.TabIndex = 20;
-            this.checkBox1.Text = "Csak a mai";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.setDayCheck.AutoSize = true;
+            this.setDayCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.setDayCheck.Location = new System.Drawing.Point(1210, 308);
+            this.setDayCheck.Name = "setDayCheck";
+            this.setDayCheck.Size = new System.Drawing.Size(120, 28);
+            this.setDayCheck.TabIndex = 20;
+            this.setDayCheck.Text = "Csak a mai";
+            this.setDayCheck.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(272, 256);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(73, 24);
+            this.label7.TabIndex = 21;
+            this.label7.Text = "View-k";
+            // 
+            // viewBox
+            // 
+            this.viewBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.viewBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.viewBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.viewBox.FormattingEnabled = true;
+            this.viewBox.Location = new System.Drawing.Point(276, 283);
+            this.viewBox.Name = "viewBox";
+            this.viewBox.Size = new System.Drawing.Size(248, 33);
+            this.viewBox.TabIndex = 22;
+            this.viewBox.SelectedIndexChanged += new System.EventHandler(this.viewBox_SelectedIndexChanged);
             // 
             // Nezegeto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1212, 707);
-            this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.dateTimePicker2);
-            this.Controls.Add(this.dateTimePicker1);
+            this.ClientSize = new System.Drawing.Size(1412, 907);
+            this.Controls.Add(this.viewBox);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.setDayCheck);
+            this.Controls.Add(this.toDate);
+            this.Controls.Add(this.fromDate);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -305,9 +340,11 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.DateTimePicker fromDate;
+        private System.Windows.Forms.DateTimePicker toDate;
+        private System.Windows.Forms.CheckBox setDayCheck;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox viewBox;
     }
 }
 
