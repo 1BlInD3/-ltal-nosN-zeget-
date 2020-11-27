@@ -22,6 +22,9 @@ namespace Általános_nézegető
         private List<string> columnList = new List<string>();
         private List<string> table = new List<string>();
         private List<string> view = new List<string>();
+        private List<string> readable = new List<string>();
+        private List<string> readable1 = new List<string>();
+
         private string checkedItems = "";
         private string connString = "";
 
@@ -81,6 +84,7 @@ namespace Általános_nézegető
             // MessageBox.Show(connectionString[serverList.SelectedIndex]);
             //LoadTableList(connectionString[serverList.SelectedIndex], "SELECT name FROM sys.tables ORDER BY name");
             LoadDbList(connectionString[serverList.SelectedIndex], "SELECT name FROM sys.databases ORDER BY name");
+            //DatabaseCheck(readable1);
             tableList.Text = "";
         }
         private void LoadDbList(string connection, string query)
@@ -93,6 +97,8 @@ namespace Általános_nézegető
             foreach (DataRow i in dt.Rows)
             {
                 dbLoad.Items.Add(i["name"].ToString());
+               // readable1.Add(i["name"].ToString());
+                
             }
         }
         private void dbLoad_SelectedIndexChanged(object sender, EventArgs e)
@@ -135,10 +141,27 @@ namespace Általános_nézegető
             orderList.Enabled = false;
             viewBox.Items.Clear();
             viewBox.Enabled = false;
-            RefreshGrid(connString, "SELECT * FROM " + tableList.Text);
-            ShowColumns(connString, "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME ='" + tableList.Text + "'");
-            ShowDate(connString, "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + tableList.Text + "' AND (DATA_TYPE = 'date' OR DATA_TYPE = 'datetime')");
-           
+           // MessageBox.Show((RowCount(connString,"SELECT sum([rows]) as SOR FROM sys.partitions WHERE object_id = object_id('"+tableList.Text+"')").ToString()));
+            if (RowCount(connString, "SELECT sum([rows]) as SOR FROM sys.partitions WHERE object_id = object_id('" + tableList.Text + "')") < 1000)
+            {
+                RefreshGrid(connString, "SELECT * FROM " + tableList.Text);
+                ShowColumns(connString, "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME ='" + tableList.Text + "'");
+                ShowDate(connString, "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + tableList.Text + "' AND (DATA_TYPE = 'date' OR DATA_TYPE = 'datetime')");
+            }
+            else 
+            {
+                ShowColumns(connString, "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME ='" + tableList.Text + "'");
+                ShowDate(connString, "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + tableList.Text + "' AND (DATA_TYPE = 'date' OR DATA_TYPE = 'datetime')");
+                string query = "SELECT TOP (1000) ";
+                foreach (var i in columnList)
+                {
+                    query += i + ",";
+                }
+                query = query.Substring(0, query.Length - 1);
+                RefreshGrid(connString, query + " FROM " + tableList.Text);
+
+            }
+
         }
         private void RefreshGrid(string connection, string query)
         {
@@ -214,6 +237,19 @@ namespace Általános_nézegető
                 datumList.Items.Add(i["COLUMN_NAME"].ToString());
             }
         }
+        private int RowCount(string connection, string query)
+        {
+            string a = "";
+            DataTable dt = new DataTable();
+            LoadGridView(connection, query).Fill(dt);
+            foreach (DataRow i in dt.Rows)
+            {
+                a = i["SOR"].ToString();
+            }
+            int b = Int32.Parse(a);
+
+            return b;
+        }
         private string GetCheckedItems() 
         {
             checkedItems = "";
@@ -254,10 +290,10 @@ namespace Általános_nézegető
             descOrderCheckBox.Enabled = true;
             updateBtn.Enabled = true;
             datumList.Enabled = true;
-            fromDate.Enabled = true;
-            toDate.Enabled = true;
+           // fromDate.Enabled = true;
+           // toDate.Enabled = true;
             setDayCheck.Checked = false;
-            setDayCheck.Enabled = true;
+           // setDayCheck.Enabled = true;
         }
         private void LoadOrderList(List<string> lista) 
         {
@@ -380,6 +416,11 @@ namespace Általános_nézegető
             updateBtn.Enabled = false;
             tableList.Enabled = false;
             viewBox.Enabled = false;
+            fromDate.Enabled = false;
+            toDate.Enabled = false;
+            setDayCheck.Checked = false;
+            setDayCheck.Enabled = false;
+            ExcelBtn.Enabled = false;
         }
         private void CopyToClipBoard(DataGridView dataGrid)
         {
@@ -433,5 +474,41 @@ namespace Általános_nézegető
             ShowColumns(connString, "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME ='" + viewBox.Text + "'");
             ShowDate(connString, "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + viewBox.Text + "' AND (DATA_TYPE = 'date' OR DATA_TYPE = 'datetime')");
         }
+        private void datumList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            fromDate.Enabled = true;
+            toDate.Enabled = true;
+            setDayCheck.Enabled = true;
+        }
+        private void DatabaseCheck(List<string> dbList)
+        {
+
+            foreach (var i in dbList)
+            {
+                int b = 0;
+                string con = connectionString[serverList.SelectedIndex].Substring(0, connectionString[serverList.SelectedIndex].IndexOf(';')) + ";Initial Catalog = " + dbList[0] + connectionString[serverList.SelectedIndex].Substring(connectionString[serverList.SelectedIndex].IndexOf(';'));
+                SqlConnection sqlConnection = new SqlConnection(con);
+                SqlCommand sqlCommand = new SqlCommand("SELECT name FROM sys.tables ORDER BY name", sqlConnection);
+                try
+                {
+                    sqlConnection.Open();
+                    SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+                    readable.Add(i);
+                }
+                catch 
+                {
+                    MessageBox.Show(i);
+                }
+                b++;
+                sqlConnection.Close();
+            }
+            foreach (var a in readable)
+            {
+                MessageBox.Show(a);
+                
+            }
+            
+        }
+
     }
 }

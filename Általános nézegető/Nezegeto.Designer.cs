@@ -80,7 +80,7 @@
             // dataGrid
             // 
             this.dataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGrid.Location = new System.Drawing.Point(12, 432);
+            this.dataGrid.Location = new System.Drawing.Point(12, 488);
             this.dataGrid.Name = "dataGrid";
             this.dataGrid.Size = new System.Drawing.Size(1388, 407);
             this.dataGrid.TabIndex = 3;
@@ -88,7 +88,7 @@
             // updateBtn
             // 
             this.updateBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.updateBtn.Location = new System.Drawing.Point(12, 845);
+            this.updateBtn.Location = new System.Drawing.Point(12, 423);
             this.updateBtn.Name = "updateBtn";
             this.updateBtn.Size = new System.Drawing.Size(1388, 50);
             this.updateBtn.TabIndex = 4;
@@ -102,7 +102,7 @@
             this.checkedListBox1.FormattingEnabled = true;
             this.checkedListBox1.Location = new System.Drawing.Point(576, 42);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(190, 274);
+            this.checkedListBox1.Size = new System.Drawing.Size(190, 256);
             this.checkedListBox1.TabIndex = 5;
             // 
             // orderList
@@ -169,6 +169,7 @@
             this.datumList.Name = "datumList";
             this.datumList.Size = new System.Drawing.Size(190, 124);
             this.datumList.TabIndex = 11;
+            this.datumList.SelectedIndexChanged += new System.EventHandler(this.datumList_SelectedIndexChanged);
             // 
             // label1
             // 
