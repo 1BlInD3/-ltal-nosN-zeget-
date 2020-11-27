@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
+using System.Threading;
 
 namespace Általános_nézegető
 {
@@ -81,11 +82,12 @@ namespace Általános_nézegető
             datumList.Items.Clear();
             viewBox.Items.Clear();
             viewBox.Text = "";
-            // MessageBox.Show(connectionString[serverList.SelectedIndex]);
-            //LoadTableList(connectionString[serverList.SelectedIndex], "SELECT name FROM sys.tables ORDER BY name");
-            LoadDbList(connectionString[serverList.SelectedIndex], "SELECT name FROM sys.databases ORDER BY name");
-            //DatabaseCheck(readable1);
+            Thread t = new Thread(new ThreadStart(StartForm));
+            t.Start();
+            string user = getBetween(connectionString[serverList.SelectedIndex],"ID=",";");
+            LoadDbList(connectionString[serverList.SelectedIndex], "DECLARE @DB_Users TABLE (DBName sysname, UserName sysname, LoginType sysname, AssociatedRole varchar(max), create_date datetime, modify_date datetime) INSERT @DB_Users EXEC sp_MSforeachdb 'use [?] SELECT ''?'' AS DB_Name,case prin.name when ''dbo'' then prin.name + '' (''+ (select SUSER_SNAME(owner_sid) from master.sys.databases where name =''?'') + '')''else prin.name end AS UserName,prin.type_desc AS LoginType,isnull(USER_NAME(mem.role_principal_id),'''') AS AssociatedRole, create_date, modify_date FROM sys.database_principals prin LEFT OUTER JOIN sys.database_role_members mem ON prin.principal_id=mem.member_principal_id WHERE prin.sid IS NOT NULL and prin.sid NOT IN (0x00) and prin.is_fixed_role <> 1 AND prin.name NOT LIKE ''##%''' SELECT dbname, username, logintype, create_date, modify_date, STUFF((SELECT ',' + CONVERT(VARCHAR(500), associatedrole) FROM @DB_Users user2 WHERE user1.DBName=user2.DBName AND user1.UserName=user2.UserName FOR XML PATH('')),1,1,'') AS Permissions_user FROM @DB_Users user1 WHERE user1.UserName = N'"+user+"'GROUP BY dbname, username, logintype, create_date, modify_date ORDER BY DBName, username");
             tableList.Text = "";
+            t.Abort();
         }
         private void LoadDbList(string connection, string query)
         {
@@ -96,9 +98,7 @@ namespace Általános_nézegető
             LoadGridView(connection, query).Fill(dt);
             foreach (DataRow i in dt.Rows)
             {
-                dbLoad.Items.Add(i["name"].ToString());
-               // readable1.Add(i["name"].ToString());
-                
+                dbLoad.Items.Add(i["dbname"].ToString());                
             }
         }
         private void dbLoad_SelectedIndexChanged(object sender, EventArgs e)
@@ -124,8 +124,11 @@ namespace Általános_nézegető
             ExcelBtn.Enabled = false;
             connString = connectionString[serverList.SelectedIndex].Substring(0, connectionString[serverList.SelectedIndex].IndexOf(';')) + ";Initial Catalog = " + dbLoad.Text + connectionString[serverList.SelectedIndex].Substring(connectionString[serverList.SelectedIndex].IndexOf(';'));
             // MessageBox.Show(connString);
+            Thread t = new Thread(new ThreadStart(StartForm));
+            t.Start();
             LoadTableList(connString, "SELECT name FROM sys.tables ORDER BY name");
             LoadViewList(connString, "SELECT name FROM sys.views ORDER BY name");
+            t.Abort();
         }
         private void tableList_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -214,7 +217,10 @@ namespace Általános_nézegető
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            Thread t = new Thread(new ThreadStart(StartForm));
+            t.Start();
             RefreshGrid(connString, /*"SELECT * FROM " + tableList.Text*/BuildQuery());
+            t.Abort();
         }
         private void ShowColumns(string connection, string query)
         {
@@ -480,35 +486,41 @@ namespace Általános_nézegető
             toDate.Enabled = true;
             setDayCheck.Enabled = true;
         }
-        private void DatabaseCheck(List<string> dbList)
+        private static string getBetween(string strSource, string strStart, string strEnd)
         {
+            if (strSource.Contains(strStart) && strSource.Contains(strEnd))
+            {
+                int Start, End;
+                Start = strSource.IndexOf(strStart, 0) + strStart.Length;
+                End = strSource.IndexOf(strEnd, Start);
+                return strSource.Substring(Start, End - Start);
+            }
 
-            foreach (var i in dbList)
-            {
-                int b = 0;
-                string con = connectionString[serverList.SelectedIndex].Substring(0, connectionString[serverList.SelectedIndex].IndexOf(';')) + ";Initial Catalog = " + dbList[0] + connectionString[serverList.SelectedIndex].Substring(connectionString[serverList.SelectedIndex].IndexOf(';'));
-                SqlConnection sqlConnection = new SqlConnection(con);
-                SqlCommand sqlCommand = new SqlCommand("SELECT name FROM sys.tables ORDER BY name", sqlConnection);
-                try
-                {
-                    sqlConnection.Open();
-                    SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
-                    readable.Add(i);
-                }
-                catch 
-                {
-                    MessageBox.Show(i);
-                }
-                b++;
-                sqlConnection.Close();
-            }
-            foreach (var a in readable)
-            {
-                MessageBox.Show(a);
-                
-            }
-            
+            return "";
         }
+        private void StartForm()
+        {
+            Application.Run(new LoadScreen());
+        }
+        private void setDayCheck_CheckedChanged(object sender, EventArgs e)
+        {
+            if (setDayCheck.Checked == true)
+            {
+                fromDate.Value = DateTime.Now;
+                toDate.Value = DateTime.Now;
 
+                fromDate.Enabled = false;
+                toDate.Enabled = false;
+            }
+            else
+            {
+                fromDate.Value = DateTime.Now;
+                toDate.Value = DateTime.Now;
+
+                fromDate.Enabled = true;
+                toDate.Enabled = true;
+            }
+
+        }
     }
 }

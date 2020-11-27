@@ -18,3 +18,8 @@ W:\Attila_programok\Nezegeto\Általános nézegető\obj\Debug\Általános nézeg
 W:\Attila_programok\Nezegeto\Általános nézegető\obj\Debug\Általános nézegető.csproj.CoreCompileInputs.cache
 W:\Attila_programok\Nezegeto\Általános nézegető\obj\Debug\Általános nézegető.exe
 W:\Attila_programok\Nezegeto\Általános nézegető\obj\Debug\Általános nézegető.pdb
+W:\Attila_programok\Nezegeto\Általános nézegető\bin\Debug\CircularProgressBar.dll
+W:\Attila_programok\Nezegeto\Általános nézegető\bin\Debug\WinFormAnimation.dll
+W:\Attila_programok\Nezegeto\Általános nézegető\bin\Debug\CircularProgressBar.xml
+W:\Attila_programok\Nezegeto\Általános nézegető\obj\Debug\Általános_nézegető.LoadScreen.resources
+W:\Attila_programok\Nezegeto\Általános nézegető\obj\Debug\Általános nézegető.csproj.CopyComplete
