@@ -132,6 +132,8 @@ namespace Általános_nézegető
         }
         private void tableList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            Thread t = new Thread(new ThreadStart(StartForm));
+            t.Start();
             ExcelBtn.Enabled = true;
             checkedListBox1.Items.Clear();
             orderList.Items.Clear();
@@ -164,13 +166,20 @@ namespace Általános_nézegető
                 RefreshGrid(connString, query + " FROM " + tableList.Text);
 
             }
+            t.Abort();
 
-        }
+        }/// <summary>
+        /// ///
+        /// </summary>
+        /// <param name="connection"></param>
+        /// <param name="query"></param>
         private void RefreshGrid(string connection, string query)
         {
+            
             DataTable dt = new DataTable();
             LoadGridView(connection, query).Fill(dt);
             dataGrid.DataSource = dt;
+           
         }
         private void LoadTableList(string connection, string query)
         {
@@ -217,10 +226,9 @@ namespace Általános_nézegető
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            Thread t = new Thread(new ThreadStart(StartForm));
-            t.Start();
+            
             RefreshGrid(connString, /*"SELECT * FROM " + tableList.Text*/BuildQuery());
-            t.Abort();
+            
         }
         private void ShowColumns(string connection, string query)
         {
@@ -464,6 +472,8 @@ namespace Általános_nézegető
         }
         private void viewBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            Thread t = new Thread(new ThreadStart(StartForm));
+            t.Start();
             checkedListBox1.Items.Clear();
             orderList.Items.Clear();
             columnList.Clear(); //2
@@ -476,9 +486,31 @@ namespace Általános_nézegető
             tableList.Items.Clear();
             tableList.Enabled = false;
             ExcelBtn.Enabled = true;
-            RefreshGrid(connString, "SELECT * FROM " + viewBox.Text);
-            ShowColumns(connString, "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME ='" + viewBox.Text + "'");
-            ShowDate(connString, "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + viewBox.Text + "' AND (DATA_TYPE = 'date' OR DATA_TYPE = 'datetime')");
+            //RefreshGrid(connString, "SELECT * FROM " + viewBox.Text);
+            //ShowColumns(connString, "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME ='" + viewBox.Text + "'");
+            //ShowDate(connString, "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + viewBox.Text + "' AND (DATA_TYPE = 'date' OR DATA_TYPE = 'datetime')");
+
+            if (RowCount(connString, "SELECT sum([rows]) as SOR FROM sys.partitions WHERE object_id = object_id('" + viewBox.Text + "')") < 1000)
+            {
+                RefreshGrid(connString, "SELECT * FROM " + viewBox.Text);
+                ShowColumns(connString, "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME ='" + viewBox.Text + "'");
+                ShowDate(connString, "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + viewBox.Text + "' AND (DATA_TYPE = 'date' OR DATA_TYPE = 'datetime')");
+            }
+            else
+            {
+                ShowColumns(connString, "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME ='" + viewBox.Text + "'");
+                ShowDate(connString, "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + viewBox.Text + "' AND (DATA_TYPE = 'date' OR DATA_TYPE = 'datetime')");
+                string query = "SELECT TOP (1000) ";
+                foreach (var i in columnList)
+                {
+                    query += i + ",";
+                }
+                query = query.Substring(0, query.Length - 1);
+                RefreshGrid(connString, query + " FROM " + viewBox.Text);
+
+            }
+
+            t.Abort();
         }
         private void datumList_SelectedIndexChanged(object sender, EventArgs e)
         {
