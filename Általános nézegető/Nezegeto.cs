@@ -139,6 +139,8 @@ namespace Általános_nézegető
             connString = connectionString[serverList.SelectedIndex].Substring(0, connectionString[serverList.SelectedIndex].IndexOf(';')) + ";Initial Catalog = " + dbLoad.Text + connectionString[serverList.SelectedIndex].Substring(connectionString[serverList.SelectedIndex].IndexOf(';'));
             advancedBox.Enabled = false;
             advancedBox.Checked = false;
+            table.Clear();
+            tableName = "";
             // MessageBox.Show(connString);
             Thread t = new Thread(new ThreadStart(StartForm));
             t.Start();
@@ -199,7 +201,7 @@ namespace Általános_nézegető
             }
             else
             {
-                MessageBox.Show(Value.advancedQuery);
+                //MessageBox.Show(Value.advancedQuery);
                 DataTable dt = new DataTable();
                 try
                 {
@@ -208,7 +210,8 @@ namespace Általános_nézegető
                 }
                 catch
                 {
-                    MessageBox.Show("Rossz lekérdezést írtál");
+                    MessageBox.Show("Rossz lekérdezést írtál","Figyelem!",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                    advancedBox.Checked = false;
                 }
             }
 

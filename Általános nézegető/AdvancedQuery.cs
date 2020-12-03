@@ -100,12 +100,20 @@ namespace Általános_nézegető
         private void orderBtn_Click(object sender, EventArgs e)
         {
             queryBoxTxt.Text += "ORDER BY ";
+            queryBoxTxt.SelectionStart = queryBoxTxt.Text.Length;
+            queryBoxTxt.Focus();
         }
 
         private void tableList_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             queryBoxTxt.Text += (tableList.SelectedItem).ToString();
             queryBoxTxt.SelectionStart = queryBoxTxt.Text.Length;
+            queryBoxTxt.Focus();
+        }
+
+        private void clearBtn_Click(object sender, EventArgs e)
+        {
+            queryBoxTxt.Text = "";
             queryBoxTxt.Focus();
         }
     }

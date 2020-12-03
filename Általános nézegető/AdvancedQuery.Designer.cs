@@ -43,6 +43,7 @@
             this.tableList = new System.Windows.Forms.ListBox();
             this.orderBtn = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.clearBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // queryBoxTxt
@@ -192,11 +193,22 @@
             this.button1.Text = "ORDER BY";
             this.button1.UseVisualStyleBackColor = true;
             // 
+            // clearBtn
+            // 
+            this.clearBtn.Location = new System.Drawing.Point(483, 259);
+            this.clearBtn.Name = "clearBtn";
+            this.clearBtn.Size = new System.Drawing.Size(75, 23);
+            this.clearBtn.TabIndex = 19;
+            this.clearBtn.Text = "TÖRÖL";
+            this.clearBtn.UseVisualStyleBackColor = true;
+            this.clearBtn.Click += new System.EventHandler(this.clearBtn_Click);
+            // 
             // AdvancedQuery
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(754, 425);
+            this.Controls.Add(this.clearBtn);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.orderBtn);
             this.Controls.Add(this.tableList);
@@ -238,5 +250,6 @@
         private System.Windows.Forms.ListBox tableList;
         private System.Windows.Forms.Button orderBtn;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button clearBtn;
     }
 }
