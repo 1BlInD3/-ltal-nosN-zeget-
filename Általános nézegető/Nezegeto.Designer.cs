@@ -53,6 +53,7 @@
             this.setDayCheck = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.viewBox = new System.Windows.Forms.ComboBox();
+            this.advancedBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -150,7 +151,7 @@
             // 
             this.descOrderCheckBox.AutoSize = true;
             this.descOrderCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.descOrderCheckBox.Location = new System.Drawing.Point(903, 378);
+            this.descOrderCheckBox.Location = new System.Drawing.Point(896, 367);
             this.descOrderCheckBox.Name = "descOrderCheckBox";
             this.descOrderCheckBox.Size = new System.Drawing.Size(183, 28);
             this.descOrderCheckBox.TabIndex = 8;
@@ -305,11 +306,24 @@
             this.viewBox.TabIndex = 22;
             this.viewBox.SelectedIndexChanged += new System.EventHandler(this.viewBox_SelectedIndexChanged);
             // 
+            // advancedBox
+            // 
+            this.advancedBox.AutoSize = true;
+            this.advancedBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.advancedBox.Location = new System.Drawing.Point(276, 367);
+            this.advancedBox.Name = "advancedBox";
+            this.advancedBox.Size = new System.Drawing.Size(186, 28);
+            this.advancedBox.TabIndex = 23;
+            this.advancedBox.Text = "Haladó lekérdezés";
+            this.advancedBox.UseVisualStyleBackColor = true;
+            this.advancedBox.CheckedChanged += new System.EventHandler(this.advancedBox_CheckedChanged);
+            // 
             // Nezegeto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1412, 907);
+            this.Controls.Add(this.advancedBox);
             this.Controls.Add(this.viewBox);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.setDayCheck);
@@ -367,6 +381,7 @@
         private System.Windows.Forms.CheckBox setDayCheck;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox viewBox;
+        private System.Windows.Forms.CheckBox advancedBox;
     }
 }
 

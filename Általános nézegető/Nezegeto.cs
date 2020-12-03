@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
 using System.Threading;
-
+using static Általános_nézegető.Value;
 namespace Általános_nézegető
 {
     //Icons made by <a href="https://www.flaticon.com/authors/prosymbols" title="Prosymbols">Prosymbols</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
@@ -21,14 +21,17 @@ namespace Általános_nézegető
         private List<string> nameList = new List<string>();
         private List<string> selectedList = new List<string>();
         private List<string> columnList = new List<string>();
-        private List<string> table = new List<string>();
+        public static List<string> table = new List<string>();
         private List<string> view = new List<string>();
         private List<string> readable = new List<string>();
         private List<string> readable1 = new List<string>();
-
+        //public List<string> tables = new List<string>();
+        public static string tableName; 
         private string checkedItems = "";
         private string connString = "";
-
+        //private AdvancedQuery aq = new AdvancedQuery();
+        public string adQuery = AdvancedQuery.query;
+        //Value value = new Value();
 
 
         public Nezegeto()
@@ -103,6 +106,7 @@ namespace Általános_nézegető
             dataGrid.DataSource = null;
             dbLoad.Text = "";
             dbLoad.Items.Clear();
+            //advancedBox.Enabled = false;
             DataTable dt = new DataTable();
             LoadGridView(connection, query).Fill(dt);
             foreach (DataRow i in dt.Rows)
@@ -133,6 +137,8 @@ namespace Általános_nézegető
             ExcelBtn.Enabled = false;
             datumList.Items.Clear();
             connString = connectionString[serverList.SelectedIndex].Substring(0, connectionString[serverList.SelectedIndex].IndexOf(';')) + ";Initial Catalog = " + dbLoad.Text + connectionString[serverList.SelectedIndex].Substring(connectionString[serverList.SelectedIndex].IndexOf(';'));
+            advancedBox.Enabled = false;
+            advancedBox.Checked = false;
             // MessageBox.Show(connString);
             Thread t = new Thread(new ThreadStart(StartForm));
             t.Start();
@@ -185,10 +191,27 @@ namespace Általános_nézegető
         private void RefreshGrid(string connection, string query)
         {
             
-            DataTable dt = new DataTable();
-            LoadGridView(connection, query).Fill(dt);
-            dataGrid.DataSource = dt;
-           
+            if (advancedBox.Checked == false)
+            {
+                DataTable dt = new DataTable();
+                LoadGridView(connection, query).Fill(dt);
+                dataGrid.DataSource = dt;
+            }
+            else
+            {
+                MessageBox.Show(Value.advancedQuery);
+                DataTable dt = new DataTable();
+                try
+                {
+                    LoadGridView(connection, Value.advancedQuery).Fill(dt);
+                    dataGrid.DataSource = dt;
+                }
+                catch
+                {
+                    MessageBox.Show("Rossz lekérdezést írtál");
+                }
+            }
+
         }
         private void LoadTableList(string connection, string query)
         {
@@ -201,7 +224,7 @@ namespace Általános_nézegető
                 LoadGridView(connString, query).Fill(dt);
                 foreach (DataRow i in dt.Rows)
                 {
-                   // table.Add(i["name"].ToString());
+                    //table.Add(i["name"]+"\n".ToString());
                     tableList.Items.Add(i["name"].ToString());
                 }
                 //foreach (var a in table)
@@ -225,6 +248,7 @@ namespace Általános_nézegető
                 LoadGridView(connString, query).Fill(dt);
                 foreach (DataRow i in dt.Rows)
                 {
+                 
                     viewBox.Items.Add(i["name"].ToString());
                 }
             }
@@ -248,7 +272,11 @@ namespace Általános_nézegető
             {
                 checkedListBox1.Items.Add(i["COLUMN_NAME"].ToString());
                 orderList.Items.Add(i["COLUMN_NAME"].ToString());
-                columnList.Add(i["COLUMN_NAME"].ToString());   // ide írtam bele
+                columnList.Add(i["COLUMN_NAME"].ToString());
+                table.Add(i["COLUMN_NAME"].ToString());
+                tableName = tableList.Text;
+                advancedBox.Enabled = true;
+                // ide írtam bele
             }
         }
         private void ShowDate(string connection, string query)
@@ -444,6 +472,8 @@ namespace Általános_nézegető
             setDayCheck.Checked = false;
             setDayCheck.Enabled = false;
             ExcelBtn.Enabled = false;
+            advancedBox.Enabled = false;
+            advancedBox.Checked = false;
         }
         private void CopyToClipBoard(DataGridView dataGrid)
         {
@@ -562,6 +592,19 @@ namespace Általános_nézegető
                 toDate.Enabled = true;
             }
 
+        }
+        private void advancedBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (advancedBox.Checked == true)
+            {
+                updateBtn.Enabled = true;
+                AdvancedQuery advancedQuery = new AdvancedQuery();
+                advancedQuery.Show();
+            }
+            else 
+            {
+                updateBtn.Enabled = false;
+            }
         }
     }
 }
