@@ -73,21 +73,30 @@ namespace Általános_nézegető
         }
         private void serverList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DisableAll();
-            columnList.Clear();
-            selectedList.Clear();
-            checkedListBox1.Items.Clear();
-            orderList.Items.Clear();
-            tableList.Items.Clear();
-            datumList.Items.Clear();
-            viewBox.Items.Clear();
-            viewBox.Text = "";
             Thread t = new Thread(new ThreadStart(StartForm));
             t.Start();
-            string user = getBetween(connectionString[serverList.SelectedIndex],"ID=",";");
-            LoadDbList(connectionString[serverList.SelectedIndex], "DECLARE @DB_Users TABLE (DBName sysname, UserName sysname, LoginType sysname, AssociatedRole varchar(max), create_date datetime, modify_date datetime) INSERT @DB_Users EXEC sp_MSforeachdb 'use [?] SELECT ''?'' AS DB_Name,case prin.name when ''dbo'' then prin.name + '' (''+ (select SUSER_SNAME(owner_sid) from master.sys.databases where name =''?'') + '')''else prin.name end AS UserName,prin.type_desc AS LoginType,isnull(USER_NAME(mem.role_principal_id),'''') AS AssociatedRole, create_date, modify_date FROM sys.database_principals prin LEFT OUTER JOIN sys.database_role_members mem ON prin.principal_id=mem.member_principal_id WHERE prin.sid IS NOT NULL and prin.sid NOT IN (0x00) and prin.is_fixed_role <> 1 AND prin.name NOT LIKE ''##%''' SELECT dbname, username, logintype, create_date, modify_date, STUFF((SELECT ',' + CONVERT(VARCHAR(500), associatedrole) FROM @DB_Users user2 WHERE user1.DBName=user2.DBName AND user1.UserName=user2.UserName FOR XML PATH('')),1,1,'') AS Permissions_user FROM @DB_Users user1 WHERE user1.UserName = N'"+user+"'GROUP BY dbname, username, logintype, create_date, modify_date ORDER BY DBName, username");
-            tableList.Text = "";
-            t.Abort();
+            try
+            {
+                DisableAll();
+                columnList.Clear();
+                selectedList.Clear();
+                checkedListBox1.Items.Clear();
+                orderList.Items.Clear();
+                tableList.Items.Clear();
+                datumList.Items.Clear();
+                viewBox.Items.Clear();
+                viewBox.Text = "";
+                string user = getBetween(connectionString[serverList.SelectedIndex], "ID=", ";");
+                LoadDbList(connectionString[serverList.SelectedIndex], "DECLARE @DB_Users TABLE (DBName sysname, UserName sysname, LoginType sysname, AssociatedRole varchar(max), create_date datetime, modify_date datetime) INSERT @DB_Users EXEC sp_MSforeachdb 'use [?] SELECT ''?'' AS DB_Name,case prin.name when ''dbo'' then prin.name + '' (''+ (select SUSER_SNAME(owner_sid) from master.sys.databases where name =''?'') + '')''else prin.name end AS UserName,prin.type_desc AS LoginType,isnull(USER_NAME(mem.role_principal_id),'''') AS AssociatedRole, create_date, modify_date FROM sys.database_principals prin LEFT OUTER JOIN sys.database_role_members mem ON prin.principal_id=mem.member_principal_id WHERE prin.sid IS NOT NULL and prin.sid NOT IN (0x00) and prin.is_fixed_role <> 1 AND prin.name NOT LIKE ''##%''' SELECT dbname, username, logintype, create_date, modify_date, STUFF((SELECT ',' + CONVERT(VARCHAR(500), associatedrole) FROM @DB_Users user2 WHERE user1.DBName=user2.DBName AND user1.UserName=user2.UserName FOR XML PATH('')),1,1,'') AS Permissions_user FROM @DB_Users user1 WHERE user1.UserName = N'" + user + "'GROUP BY dbname, username, logintype, create_date, modify_date ORDER BY DBName, username");
+                tableList.Text = "";
+                t.Abort();
+            }
+            catch (Exception asd) 
+            {
+                t.Abort();
+                MessageBox.Show(asd.ToString());
+                
+            }
         }
         private void LoadDbList(string connection, string query)
         {
@@ -122,6 +131,7 @@ namespace Általános_nézegető
             orderList.Items.Clear();
             selectColumn.Enabled = false;
             ExcelBtn.Enabled = false;
+            datumList.Items.Clear();
             connString = connectionString[serverList.SelectedIndex].Substring(0, connectionString[serverList.SelectedIndex].IndexOf(';')) + ";Initial Catalog = " + dbLoad.Text + connectionString[serverList.SelectedIndex].Substring(connectionString[serverList.SelectedIndex].IndexOf(';'));
             // MessageBox.Show(connString);
             Thread t = new Thread(new ThreadStart(StartForm));
@@ -138,7 +148,7 @@ namespace Általános_nézegető
             checkedListBox1.Items.Clear();
             orderList.Items.Clear();
             columnList.Clear(); //2
-            datumList.Items.Clear();
+           // datumList.Items.Clear();
             checkedListBox1.Enabled = true;
             selectColumn.Enabled = true;
             checkedListBox1.Enabled = true;
@@ -146,7 +156,10 @@ namespace Általános_nézegető
             orderList.Enabled = false;
             viewBox.Items.Clear();
             viewBox.Enabled = false;
-           // MessageBox.Show((RowCount(connString,"SELECT sum([rows]) as SOR FROM sys.partitions WHERE object_id = object_id('"+tableList.Text+"')").ToString()));
+            datumList.SelectedIndex = -1;
+            datumList.Items.Clear();
+            descOrderCheckBox.Checked = false;
+            // MessageBox.Show((RowCount(connString,"SELECT sum([rows]) as SOR FROM sys.partitions WHERE object_id = object_id('"+tableList.Text+"')").ToString()));
             if (RowCount(connString, "SELECT sum([rows]) as SOR FROM sys.partitions WHERE object_id = object_id('" + tableList.Text + "')") < 1000)
             {
                 RefreshGrid(connString, "SELECT * FROM " + tableList.Text);
@@ -168,11 +181,7 @@ namespace Általános_nézegető
             }
             t.Abort();
 
-        }/// <summary>
-        /// ///
-        /// </summary>
-        /// <param name="connection"></param>
-        /// <param name="query"></param>
+        }
         private void RefreshGrid(string connection, string query)
         {
             
@@ -251,7 +260,7 @@ namespace Általános_nézegető
                 datumList.Items.Add(i["COLUMN_NAME"].ToString());
             }
         }
-        private int RowCount(string connection, string query)
+        private long RowCount(string connection, string query)
         {
             string a = "";
             DataTable dt = new DataTable();
@@ -260,7 +269,7 @@ namespace Általános_nézegető
             {
                 a = i["SOR"].ToString();
             }
-            int b = Int32.Parse(a);
+            long b = Int32.Parse(a);
 
             return b;
         }
@@ -490,7 +499,7 @@ namespace Általános_nézegető
             //ShowColumns(connString, "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME ='" + viewBox.Text + "'");
             //ShowDate(connString, "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + viewBox.Text + "' AND (DATA_TYPE = 'date' OR DATA_TYPE = 'datetime')");
 
-            if (RowCount(connString, "SELECT sum([rows]) as SOR FROM sys.partitions WHERE object_id = object_id('" + viewBox.Text + "')") < 1000)
+            if (RowCount(connString, /*"SELECT sum([rows]) as SOR FROM sys.partitions WHERE object_id = object_id('" + viewBox.Text + "')"*/ "SELECT count(*) as SOR FROM "+viewBox.Text) < 1000)
             {
                 RefreshGrid(connString, "SELECT * FROM " + viewBox.Text);
                 ShowColumns(connString, "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME ='" + viewBox.Text + "'");
