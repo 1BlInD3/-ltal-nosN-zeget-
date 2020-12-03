@@ -25,14 +25,11 @@ namespace Általános_nézegető
         private List<string> view = new List<string>();
         private List<string> readable = new List<string>();
         private List<string> readable1 = new List<string>();
-        //public List<string> tables = new List<string>();
         public static string tableName; 
         private string checkedItems = "";
         private string connString = "";
-        //private AdvancedQuery aq = new AdvancedQuery();
         public string adQuery = AdvancedQuery.query;
-        //Value value = new Value();
-
+        
 
         public Nezegeto()
         {
@@ -152,11 +149,11 @@ namespace Általános_nézegető
         {
             Thread t = new Thread(new ThreadStart(StartForm));
             t.Start();
+            updateBtn.Enabled = false;
             ExcelBtn.Enabled = true;
             checkedListBox1.Items.Clear();
             orderList.Items.Clear();
             columnList.Clear(); //2
-           // datumList.Items.Clear();
             checkedListBox1.Enabled = true;
             selectColumn.Enabled = true;
             checkedListBox1.Enabled = true;
@@ -164,9 +161,11 @@ namespace Általános_nézegető
             orderList.Enabled = false;
             viewBox.Items.Clear();
             viewBox.Enabled = false;
-            datumList.SelectedIndex = -1;
+          //  datumList.SelectedIndex = -1;
             datumList.Items.Clear();
-            descOrderCheckBox.Checked = false;
+            datumList.Enabled = false;
+            setDayCheck.Checked = false;
+            setDayCheck.Enabled = false;
             // MessageBox.Show((RowCount(connString,"SELECT sum([rows]) as SOR FROM sys.partitions WHERE object_id = object_id('"+tableList.Text+"')").ToString()));
             if (RowCount(connString, "SELECT sum([rows]) as SOR FROM sys.partitions WHERE object_id = object_id('" + tableList.Text + "')") < 1000)
             {
@@ -196,8 +195,16 @@ namespace Általános_nézegető
             if (advancedBox.Checked == false)
             {
                 DataTable dt = new DataTable();
-                LoadGridView(connection, query).Fill(dt);
-                dataGrid.DataSource = dt;
+                try
+                {
+                    LoadGridView(connection, query).Fill(dt);
+                    dataGrid.DataSource = dt;
+                }
+                catch
+                {
+                    MessageBox.Show("Rossz lekérdezést írtál", "Figyelem!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    updateBtn.Enabled = false;
+                }
             }
             else
             {
@@ -528,6 +535,15 @@ namespace Általános_nézegető
             tableList.Items.Clear();
             tableList.Enabled = false;
             ExcelBtn.Enabled = true;
+            descOrderCheckBox.Checked = false;
+            descOrderCheckBox.Enabled = false;
+            datumList.Items.Clear();
+            datumList.Enabled = false;
+            fromDate.Enabled = false;
+            toDate.Enabled = false;
+            setDayCheck.Checked = false;
+            setDayCheck.Enabled = false;
+            updateBtn.Enabled = false;
             //RefreshGrid(connString, "SELECT * FROM " + viewBox.Text);
             //ShowColumns(connString, "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME ='" + viewBox.Text + "'");
             //ShowDate(connString, "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + viewBox.Text + "' AND (DATA_TYPE = 'date' OR DATA_TYPE = 'datetime')");

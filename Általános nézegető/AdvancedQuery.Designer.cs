@@ -42,7 +42,6 @@
             this.okBtn = new System.Windows.Forms.Button();
             this.tableList = new System.Windows.Forms.ListBox();
             this.orderBtn = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.clearBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -57,9 +56,9 @@
             // 
             // selectBtn
             // 
-            this.selectBtn.Location = new System.Drawing.Point(345, 59);
+            this.selectBtn.Location = new System.Drawing.Point(345, 73);
             this.selectBtn.Name = "selectBtn";
-            this.selectBtn.Size = new System.Drawing.Size(75, 23);
+            this.selectBtn.Size = new System.Drawing.Size(98, 34);
             this.selectBtn.TabIndex = 2;
             this.selectBtn.Text = "SELECT";
             this.selectBtn.UseVisualStyleBackColor = true;
@@ -67,9 +66,9 @@
             // 
             // whereBtn
             // 
-            this.whereBtn.Location = new System.Drawing.Point(345, 210);
+            this.whereBtn.Location = new System.Drawing.Point(345, 298);
             this.whereBtn.Name = "whereBtn";
-            this.whereBtn.Size = new System.Drawing.Size(75, 23);
+            this.whereBtn.Size = new System.Drawing.Size(98, 35);
             this.whereBtn.TabIndex = 3;
             this.whereBtn.Text = "WHERE";
             this.whereBtn.UseVisualStyleBackColor = true;
@@ -77,9 +76,9 @@
             // 
             // fromBtn
             // 
-            this.fromBtn.Location = new System.Drawing.Point(345, 156);
+            this.fromBtn.Location = new System.Drawing.Point(345, 186);
             this.fromBtn.Name = "fromBtn";
-            this.fromBtn.Size = new System.Drawing.Size(75, 23);
+            this.fromBtn.Size = new System.Drawing.Size(98, 34);
             this.fromBtn.TabIndex = 4;
             this.fromBtn.Text = "FROM";
             this.fromBtn.UseVisualStyleBackColor = true;
@@ -87,9 +86,9 @@
             // 
             // allBtn
             // 
-            this.allBtn.Location = new System.Drawing.Point(345, 104);
+            this.allBtn.Location = new System.Drawing.Point(345, 132);
             this.allBtn.Name = "allBtn";
-            this.allBtn.Size = new System.Drawing.Size(75, 23);
+            this.allBtn.Size = new System.Drawing.Size(98, 34);
             this.allBtn.TabIndex = 5;
             this.allBtn.Text = "*";
             this.allBtn.UseVisualStyleBackColor = true;
@@ -97,9 +96,9 @@
             // 
             // useBtn
             // 
-            this.useBtn.Location = new System.Drawing.Point(345, 12);
+            this.useBtn.Location = new System.Drawing.Point(345, 13);
             this.useBtn.Name = "useBtn";
-            this.useBtn.Size = new System.Drawing.Size(75, 23);
+            this.useBtn.Size = new System.Drawing.Size(98, 34);
             this.useBtn.TabIndex = 6;
             this.useBtn.Text = "USE";
             this.useBtn.UseVisualStyleBackColor = true;
@@ -109,7 +108,7 @@
             // 
             this.smallerBtn.Location = new System.Drawing.Point(480, 13);
             this.smallerBtn.Name = "smallerBtn";
-            this.smallerBtn.Size = new System.Drawing.Size(75, 23);
+            this.smallerBtn.Size = new System.Drawing.Size(94, 34);
             this.smallerBtn.TabIndex = 7;
             this.smallerBtn.Text = "<";
             this.smallerBtn.UseVisualStyleBackColor = true;
@@ -117,9 +116,9 @@
             // 
             // largerBtn
             // 
-            this.largerBtn.Location = new System.Drawing.Point(483, 59);
+            this.largerBtn.Location = new System.Drawing.Point(480, 73);
             this.largerBtn.Name = "largerBtn";
-            this.largerBtn.Size = new System.Drawing.Size(75, 23);
+            this.largerBtn.Size = new System.Drawing.Size(94, 34);
             this.largerBtn.TabIndex = 8;
             this.largerBtn.Text = ">";
             this.largerBtn.UseVisualStyleBackColor = true;
@@ -127,9 +126,9 @@
             // 
             // equalBtn
             // 
-            this.equalBtn.Location = new System.Drawing.Point(483, 104);
+            this.equalBtn.Location = new System.Drawing.Point(480, 132);
             this.equalBtn.Name = "equalBtn";
-            this.equalBtn.Size = new System.Drawing.Size(75, 23);
+            this.equalBtn.Size = new System.Drawing.Size(94, 34);
             this.equalBtn.TabIndex = 9;
             this.equalBtn.Text = "=";
             this.equalBtn.UseVisualStyleBackColor = true;
@@ -137,9 +136,9 @@
             // 
             // notEqualbtn
             // 
-            this.notEqualbtn.Location = new System.Drawing.Point(483, 156);
+            this.notEqualbtn.Location = new System.Drawing.Point(480, 186);
             this.notEqualbtn.Name = "notEqualbtn";
-            this.notEqualbtn.Size = new System.Drawing.Size(75, 23);
+            this.notEqualbtn.Size = new System.Drawing.Size(94, 34);
             this.notEqualbtn.TabIndex = 10;
             this.notEqualbtn.Text = "<>";
             this.notEqualbtn.UseVisualStyleBackColor = true;
@@ -149,7 +148,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(580, 13);
+            this.label1.Location = new System.Drawing.Point(586, 13);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(106, 24);
             this.label1.TabIndex = 12;
@@ -168,36 +167,27 @@
             // tableList
             // 
             this.tableList.FormattingEnabled = true;
-            this.tableList.Location = new System.Drawing.Point(584, 59);
+            this.tableList.Location = new System.Drawing.Point(590, 45);
             this.tableList.Name = "tableList";
-            this.tableList.Size = new System.Drawing.Size(152, 355);
+            this.tableList.Size = new System.Drawing.Size(152, 368);
             this.tableList.TabIndex = 16;
             this.tableList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.tableList_MouseDoubleClick);
             // 
             // orderBtn
             // 
-            this.orderBtn.Location = new System.Drawing.Point(345, 260);
+            this.orderBtn.Location = new System.Drawing.Point(345, 239);
             this.orderBtn.Name = "orderBtn";
-            this.orderBtn.Size = new System.Drawing.Size(75, 23);
+            this.orderBtn.Size = new System.Drawing.Size(98, 34);
             this.orderBtn.TabIndex = 17;
             this.orderBtn.Text = "ORDER BY";
             this.orderBtn.UseVisualStyleBackColor = true;
             this.orderBtn.Click += new System.EventHandler(this.orderBtn_Click);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(483, 210);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 18;
-            this.button1.Text = "ORDER BY";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // clearBtn
             // 
-            this.clearBtn.Location = new System.Drawing.Point(483, 259);
+            this.clearBtn.Location = new System.Drawing.Point(480, 298);
             this.clearBtn.Name = "clearBtn";
-            this.clearBtn.Size = new System.Drawing.Size(75, 23);
+            this.clearBtn.Size = new System.Drawing.Size(94, 35);
             this.clearBtn.TabIndex = 19;
             this.clearBtn.Text = "TÖRÖL";
             this.clearBtn.UseVisualStyleBackColor = true;
@@ -209,7 +199,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(754, 425);
             this.Controls.Add(this.clearBtn);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.orderBtn);
             this.Controls.Add(this.tableList);
             this.Controls.Add(this.okBtn);
@@ -249,7 +238,6 @@
         private System.Windows.Forms.Button okBtn;
         private System.Windows.Forms.ListBox tableList;
         private System.Windows.Forms.Button orderBtn;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button clearBtn;
     }
 }
