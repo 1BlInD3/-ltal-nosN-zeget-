@@ -9,5 +9,7 @@ namespace Általános_nézegető
     public class Value
     {
         public static string advancedQuery { get; set; }
+
+        public static bool isChecked { get; set; }
     }
 }

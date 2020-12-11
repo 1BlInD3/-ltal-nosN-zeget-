@@ -33,7 +33,6 @@
             this.whereBtn = new System.Windows.Forms.Button();
             this.fromBtn = new System.Windows.Forms.Button();
             this.allBtn = new System.Windows.Forms.Button();
-            this.useBtn = new System.Windows.Forms.Button();
             this.smallerBtn = new System.Windows.Forms.Button();
             this.largerBtn = new System.Windows.Forms.Button();
             this.equalBtn = new System.Windows.Forms.Button();
@@ -43,6 +42,8 @@
             this.tableList = new System.Windows.Forms.ListBox();
             this.orderBtn = new System.Windows.Forms.Button();
             this.clearBtn = new System.Windows.Forms.Button();
+            this.andBtn = new System.Windows.Forms.Button();
+            this.orBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // queryBoxTxt
@@ -56,7 +57,7 @@
             // 
             // selectBtn
             // 
-            this.selectBtn.Location = new System.Drawing.Point(345, 73);
+            this.selectBtn.Location = new System.Drawing.Point(345, 13);
             this.selectBtn.Name = "selectBtn";
             this.selectBtn.Size = new System.Drawing.Size(98, 34);
             this.selectBtn.TabIndex = 2;
@@ -66,7 +67,7 @@
             // 
             // whereBtn
             // 
-            this.whereBtn.Location = new System.Drawing.Point(345, 298);
+            this.whereBtn.Location = new System.Drawing.Point(345, 185);
             this.whereBtn.Name = "whereBtn";
             this.whereBtn.Size = new System.Drawing.Size(98, 35);
             this.whereBtn.TabIndex = 3;
@@ -76,7 +77,7 @@
             // 
             // fromBtn
             // 
-            this.fromBtn.Location = new System.Drawing.Point(345, 186);
+            this.fromBtn.Location = new System.Drawing.Point(345, 132);
             this.fromBtn.Name = "fromBtn";
             this.fromBtn.Size = new System.Drawing.Size(98, 34);
             this.fromBtn.TabIndex = 4;
@@ -86,23 +87,13 @@
             // 
             // allBtn
             // 
-            this.allBtn.Location = new System.Drawing.Point(345, 132);
+            this.allBtn.Location = new System.Drawing.Point(345, 73);
             this.allBtn.Name = "allBtn";
             this.allBtn.Size = new System.Drawing.Size(98, 34);
             this.allBtn.TabIndex = 5;
             this.allBtn.Text = "*";
             this.allBtn.UseVisualStyleBackColor = true;
             this.allBtn.Click += new System.EventHandler(this.allBtn_Click);
-            // 
-            // useBtn
-            // 
-            this.useBtn.Location = new System.Drawing.Point(345, 13);
-            this.useBtn.Name = "useBtn";
-            this.useBtn.Size = new System.Drawing.Size(98, 34);
-            this.useBtn.TabIndex = 6;
-            this.useBtn.Text = "USE";
-            this.useBtn.UseVisualStyleBackColor = true;
-            this.useBtn.Click += new System.EventHandler(this.useBtn_Click);
             // 
             // smallerBtn
             // 
@@ -175,7 +166,7 @@
             // 
             // orderBtn
             // 
-            this.orderBtn.Location = new System.Drawing.Point(345, 239);
+            this.orderBtn.Location = new System.Drawing.Point(345, 298);
             this.orderBtn.Name = "orderBtn";
             this.orderBtn.Size = new System.Drawing.Size(98, 34);
             this.orderBtn.TabIndex = 17;
@@ -193,11 +184,33 @@
             this.clearBtn.UseVisualStyleBackColor = true;
             this.clearBtn.Click += new System.EventHandler(this.clearBtn_Click);
             // 
+            // andBtn
+            // 
+            this.andBtn.Location = new System.Drawing.Point(345, 242);
+            this.andBtn.Name = "andBtn";
+            this.andBtn.Size = new System.Drawing.Size(98, 34);
+            this.andBtn.TabIndex = 20;
+            this.andBtn.Text = "AND";
+            this.andBtn.UseVisualStyleBackColor = true;
+            this.andBtn.Click += new System.EventHandler(this.andBtn_Click);
+            // 
+            // orBtn
+            // 
+            this.orBtn.Location = new System.Drawing.Point(480, 242);
+            this.orBtn.Name = "orBtn";
+            this.orBtn.Size = new System.Drawing.Size(94, 34);
+            this.orBtn.TabIndex = 21;
+            this.orBtn.Text = "OR";
+            this.orBtn.UseVisualStyleBackColor = true;
+            this.orBtn.Click += new System.EventHandler(this.orBtn_Click);
+            // 
             // AdvancedQuery
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(754, 425);
+            this.Controls.Add(this.orBtn);
+            this.Controls.Add(this.andBtn);
             this.Controls.Add(this.clearBtn);
             this.Controls.Add(this.orderBtn);
             this.Controls.Add(this.tableList);
@@ -207,7 +220,6 @@
             this.Controls.Add(this.equalBtn);
             this.Controls.Add(this.largerBtn);
             this.Controls.Add(this.smallerBtn);
-            this.Controls.Add(this.useBtn);
             this.Controls.Add(this.allBtn);
             this.Controls.Add(this.fromBtn);
             this.Controls.Add(this.whereBtn);
@@ -216,6 +228,8 @@
             this.Name = "AdvancedQuery";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AdvancedQuery";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AdvancedQuery_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AdvancedQuery_FormClosed);
             this.Load += new System.EventHandler(this.AdvancedQuery_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -229,7 +243,6 @@
         private System.Windows.Forms.Button whereBtn;
         private System.Windows.Forms.Button fromBtn;
         private System.Windows.Forms.Button allBtn;
-        private System.Windows.Forms.Button useBtn;
         private System.Windows.Forms.Button smallerBtn;
         private System.Windows.Forms.Button largerBtn;
         private System.Windows.Forms.Button equalBtn;
@@ -239,5 +252,7 @@
         private System.Windows.Forms.ListBox tableList;
         private System.Windows.Forms.Button orderBtn;
         private System.Windows.Forms.Button clearBtn;
+        private System.Windows.Forms.Button andBtn;
+        private System.Windows.Forms.Button orBtn;
     }
 }

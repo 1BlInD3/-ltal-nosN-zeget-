@@ -13,16 +13,11 @@ namespace Általános_nézegető
     public partial class AdvancedQuery : Form
     {
         public static string query = "";
+        public static bool asd = false;
+        private bool isBtnClicked = false;
         public AdvancedQuery()
         {
             InitializeComponent();
-        }
-
-        private void useBtn_Click(object sender, EventArgs e)
-        {
-            queryBoxTxt.Text += "USE ";
-            queryBoxTxt.SelectionStart = queryBoxTxt.Text.Length;
-            queryBoxTxt.Focus();
         }
 
         private void selectBtn_Click(object sender, EventArgs e)
@@ -41,7 +36,14 @@ namespace Általános_nézegető
 
         private void fromBtn_Click(object sender, EventArgs e)
         {
-            queryBoxTxt.Text += " FROM "+Nezegeto.tableName+" ";
+            if (Nezegeto.tableName.Length < 1)
+            {
+                queryBoxTxt.Text += " FROM " + Nezegeto.tableName + " ";
+            }
+            else
+            {
+                queryBoxTxt.Text += " FROM " + Nezegeto.tableName + " ";
+            }
             queryBoxTxt.SelectionStart = queryBoxTxt.Text.Length;
             queryBoxTxt.Focus();
         }
@@ -85,6 +87,9 @@ namespace Általános_nézegető
         {
             
             Value.advancedQuery = queryBoxTxt.Text;
+            Nezegeto.cb.Checked = true;
+            isBtnClicked = true;
+            Nezegeto.btn.Enabled = true;
             this.Close();
         }
 
@@ -94,6 +99,11 @@ namespace Általános_nézegető
             foreach (var a in Nezegeto.table)
             {
                 tableList.Items.Add(a);
+            }
+            
+            if (Value.advancedQuery != null)
+            {
+                queryBoxTxt.Text = Value.advancedQuery;
             }
         }
 
@@ -114,6 +124,39 @@ namespace Általános_nézegető
         private void clearBtn_Click(object sender, EventArgs e)
         {
             queryBoxTxt.Text = "";
+            queryBoxTxt.Focus();
+        }
+
+        private void AdvancedQuery_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!isBtnClicked)
+            { 
+            Nezegeto.cb.Checked = false;
+            }
+
+        }
+
+        private void AdvancedQuery_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (!isBtnClicked)
+            { 
+             Nezegeto.cb.Checked = false;
+            }
+
+
+        }
+
+        private void andBtn_Click(object sender, EventArgs e)
+        {
+            queryBoxTxt.Text += "AND ";
+            queryBoxTxt.SelectionStart = queryBoxTxt.Text.Length;
+            queryBoxTxt.Focus();
+        }
+
+        private void orBtn_Click(object sender, EventArgs e)
+        {
+            queryBoxTxt.Text += "OR ";
+            queryBoxTxt.SelectionStart = queryBoxTxt.Text.Length;
             queryBoxTxt.Focus();
         }
     }

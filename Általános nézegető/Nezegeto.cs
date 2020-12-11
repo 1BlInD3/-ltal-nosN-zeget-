@@ -29,6 +29,10 @@ namespace Általános_nézegető
         private string checkedItems = "";
         private string connString = "";
         public string adQuery = AdvancedQuery.query;
+        public bool isAdvancedChecked = AdvancedQuery.asd;
+        public static CheckBox cb = new CheckBox();
+        public static Button btn = new Button();
+        private bool isClicked = false;
         
 
         public Nezegeto()
@@ -38,6 +42,8 @@ namespace Általános_nézegető
             LoadXml();
             LoadList();
             DisableAll();
+            cb = advancedBox;
+            btn = updateBtn;
             
         }
         private void LoadXml()
@@ -74,7 +80,6 @@ namespace Általános_nézegető
         private void serverList_SelectedIndexChanged(object sender, EventArgs e)
         {
             Thread t = new Thread(new ThreadStart(StartForm));
-            t.Start();
             try
             {
                 DisableAll();
@@ -87,16 +92,29 @@ namespace Általános_nézegető
                 viewBox.Items.Clear();
                 viewBox.Text = "";
                 string user = getBetween(connectionString[serverList.SelectedIndex], "ID=", ";");
-                LoadDbList(connectionString[serverList.SelectedIndex], "DECLARE @DB_Users TABLE (DBName sysname, UserName sysname, LoginType sysname, AssociatedRole varchar(max), create_date datetime, modify_date datetime) INSERT @DB_Users EXEC sp_MSforeachdb 'use [?] SELECT ''?'' AS DB_Name,case prin.name when ''dbo'' then prin.name + '' (''+ (select SUSER_SNAME(owner_sid) from master.sys.databases where name =''?'') + '')''else prin.name end AS UserName,prin.type_desc AS LoginType,isnull(USER_NAME(mem.role_principal_id),'''') AS AssociatedRole, create_date, modify_date FROM sys.database_principals prin LEFT OUTER JOIN sys.database_role_members mem ON prin.principal_id=mem.member_principal_id WHERE prin.sid IS NOT NULL and prin.sid NOT IN (0x00) and prin.is_fixed_role <> 1 AND prin.name NOT LIKE ''##%''' SELECT dbname, username, logintype, create_date, modify_date, STUFF((SELECT ',' + CONVERT(VARCHAR(500), associatedrole) FROM @DB_Users user2 WHERE user1.DBName=user2.DBName AND user1.UserName=user2.UserName FOR XML PATH('')),1,1,'') AS Permissions_user FROM @DB_Users user1 WHERE user1.UserName = N'" + user + "'GROUP BY dbname, username, logintype, create_date, modify_date ORDER BY DBName, username");
-                tableList.Text = "";
-                t.Abort();
+                try
+                {
+                    t.Start();
+                    LoadDbList(connectionString[serverList.SelectedIndex], "DECLARE @DB_Users TABLE (DBName sysname, UserName sysname, LoginType sysname, AssociatedRole varchar(max), create_date datetime, modify_date datetime) INSERT @DB_Users EXEC sp_MSforeachdb 'use [?] SELECT ''?'' AS DB_Name,case prin.name when ''dbo'' then prin.name + '' (''+ (select SUSER_SNAME(owner_sid) from master.sys.databases where name =''?'') + '')''else prin.name end AS UserName,prin.type_desc AS LoginType,isnull(USER_NAME(mem.role_principal_id),'''') AS AssociatedRole, create_date, modify_date FROM sys.database_principals prin LEFT OUTER JOIN sys.database_role_members mem ON prin.principal_id=mem.member_principal_id WHERE prin.sid IS NOT NULL and prin.sid NOT IN (0x00) and prin.is_fixed_role <> 1 AND prin.name NOT LIKE ''##%''' SELECT dbname, username, logintype, create_date, modify_date, STUFF((SELECT ',' + CONVERT(VARCHAR(500), associatedrole) FROM @DB_Users user2 WHERE user1.DBName=user2.DBName AND user1.UserName=user2.UserName FOR XML PATH('')),1,1,'') AS Permissions_user FROM @DB_Users user1 WHERE user1.UserName = N'" + user + "'GROUP BY dbname, username, logintype, create_date, modify_date ORDER BY DBName, username");
+                    isClicked = true;
+                    t.Abort();
+                }
+                catch
+                {
+                    isClicked = false;
+                }
+                    tableList.Text = "";
             }
-            catch (Exception asd) 
+            catch
             {
-                t.Abort();
-                MessageBox.Show(asd.ToString());
-                
+                if(isClicked)
+                { 
+                    t.Abort();
+                }
+                // MessageBox.Show(asd.ToString());
+
             }
+            Value.advancedQuery = "";
         }
         private void LoadDbList(string connection, string query)
         {
@@ -144,6 +162,7 @@ namespace Általános_nézegető
             LoadTableList(connString, "SELECT name FROM sys.tables ORDER BY name");
             LoadViewList(connString, "SELECT name FROM sys.views ORDER BY name");
             t.Abort();
+            Value.advancedQuery = "";
         }
         private void tableList_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -187,6 +206,11 @@ namespace Általános_nézegető
 
             }
             t.Abort();
+            advancedBox.Checked = Value.isChecked;
+            fromDate.Value = DateTime.Now;
+            toDate.Value = DateTime.Now;
+            tableName = tableList.Text;
+            Value.advancedQuery = "";
 
         }
         private void RefreshGrid(string connection, string query)
@@ -284,7 +308,7 @@ namespace Általános_nézegető
                 orderList.Items.Add(i["COLUMN_NAME"].ToString());
                 columnList.Add(i["COLUMN_NAME"].ToString());
                 table.Add(i["COLUMN_NAME"].ToString());
-                tableName = tableList.Text;
+                //tableName = tableList.Text;
                 advancedBox.Enabled = true;
                 // ide írtam bele
             }
@@ -477,13 +501,13 @@ namespace Általános_nézegető
             updateBtn.Enabled = false;
             tableList.Enabled = false;
             viewBox.Enabled = false;
-            fromDate.Enabled = false;
-            toDate.Enabled = false;
             setDayCheck.Checked = false;
             setDayCheck.Enabled = false;
             ExcelBtn.Enabled = false;
             advancedBox.Enabled = false;
             advancedBox.Checked = false;
+            fromDate.Enabled = false;
+            toDate.Enabled = false;
         }
         private void CopyToClipBoard(DataGridView dataGrid)
         {
@@ -569,6 +593,10 @@ namespace Általános_nézegető
             }
 
             t.Abort();
+            advancedBox.Checked = Value.isChecked;
+            fromDate.Value = DateTime.Now;
+            toDate.Value = DateTime.Now;
+            tableName = viewBox.Text;
         }
         private void datumList_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -614,15 +642,33 @@ namespace Általános_nézegető
         }
         private void advancedBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (advancedBox.Checked == true)
+            //if (advancedBox.Checked == true)
+            //{
+            //    updateBtn.Enabled = true;
+            //    AdvancedQuery advancedQuery = new AdvancedQuery();
+            //    advancedQuery.Show();
+            //}
+            //else 
+            //{
+            //    updateBtn.Enabled = false;
+            //}
+        }
+
+        private void advancedBox_Click(object sender, EventArgs e)
+        {
+            if (advancedBox.Checked == false)
             {
-                updateBtn.Enabled = true;
                 AdvancedQuery advancedQuery = new AdvancedQuery();
                 advancedQuery.Show();
+                //updateBtn.Enabled = true;
+                advancedBox.Checked = true;
             }
             else 
             {
-                updateBtn.Enabled = false;
+                AdvancedQuery advancedQuery = new AdvancedQuery();
+                advancedQuery.Show();
+                //updateBtn.Enabled = true;
+                advancedBox.Checked = true;
             }
         }
     }

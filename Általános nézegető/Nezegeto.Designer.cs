@@ -82,6 +82,9 @@
             // 
             // dataGrid
             // 
+            this.dataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
@@ -103,11 +106,13 @@
             this.dataGrid.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGrid.Location = new System.Drawing.Point(12, 488);
             this.dataGrid.Name = "dataGrid";
-            this.dataGrid.Size = new System.Drawing.Size(1388, 407);
+            this.dataGrid.Size = new System.Drawing.Size(1388, 411);
             this.dataGrid.TabIndex = 3;
             // 
             // updateBtn
             // 
+            this.updateBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.updateBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.updateBtn.Location = new System.Drawing.Point(12, 423);
             this.updateBtn.Name = "updateBtn";
@@ -119,6 +124,7 @@
             // 
             // checkedListBox1
             // 
+            this.checkedListBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkedListBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkedListBox1.FormattingEnabled = true;
             this.checkedListBox1.Location = new System.Drawing.Point(576, 42);
@@ -128,6 +134,7 @@
             // 
             // orderList
             // 
+            this.orderList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.orderList.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.orderList.FormattingEnabled = true;
             this.orderList.ItemHeight = 20;
@@ -138,6 +145,7 @@
             // 
             // selectColumn
             // 
+            this.selectColumn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.selectColumn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.selectColumn.Location = new System.Drawing.Point(576, 354);
             this.selectColumn.Name = "selectColumn";
@@ -149,6 +157,7 @@
             // 
             // descOrderCheckBox
             // 
+            this.descOrderCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.descOrderCheckBox.AutoSize = true;
             this.descOrderCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.descOrderCheckBox.Location = new System.Drawing.Point(896, 367);
@@ -172,6 +181,7 @@
             // 
             // ExcelBtn
             // 
+            this.ExcelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ExcelBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ExcelBtn.Location = new System.Drawing.Point(1210, 354);
             this.ExcelBtn.Name = "ExcelBtn";
@@ -183,6 +193,7 @@
             // 
             // datumList
             // 
+            this.datumList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.datumList.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.datumList.FormattingEnabled = true;
             this.datumList.ItemHeight = 20;
@@ -224,6 +235,7 @@
             // 
             // label4
             // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(572, 15);
@@ -234,9 +246,10 @@
             // 
             // label5
             // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(894, 15);
+            this.label5.Location = new System.Drawing.Point(892, 15);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(104, 24);
             this.label5.TabIndex = 16;
@@ -244,9 +257,10 @@
             // 
             // label6
             // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(1206, 9);
+            this.label6.Location = new System.Drawing.Point(1206, 13);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(136, 24);
             this.label6.TabIndex = 17;
@@ -254,6 +268,7 @@
             // 
             // fromDate
             // 
+            this.fromDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.fromDate.CustomFormat = "yyyy.MM.dd";
             this.fromDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.fromDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
@@ -264,6 +279,7 @@
             // 
             // toDate
             // 
+            this.toDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.toDate.CustomFormat = "yyyy.MM.dd";
             this.toDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
@@ -274,6 +290,7 @@
             // 
             // setDayCheck
             // 
+            this.setDayCheck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.setDayCheck.AutoSize = true;
             this.setDayCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.setDayCheck.Location = new System.Drawing.Point(1210, 308);
@@ -317,12 +334,14 @@
             this.advancedBox.Text = "Haladó lekérdezés";
             this.advancedBox.UseVisualStyleBackColor = true;
             this.advancedBox.CheckedChanged += new System.EventHandler(this.advancedBox_CheckedChanged);
+            this.advancedBox.Click += new System.EventHandler(this.advancedBox_Click);
             // 
             // Nezegeto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1412, 907);
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(1412, 911);
             this.Controls.Add(this.advancedBox);
             this.Controls.Add(this.viewBox);
             this.Controls.Add(this.label7);
@@ -346,7 +365,6 @@
             this.Controls.Add(this.dataGrid);
             this.Controls.Add(this.tableList);
             this.Controls.Add(this.serverList);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Nezegeto";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
