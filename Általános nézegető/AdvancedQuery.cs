@@ -85,12 +85,22 @@ namespace Általános_nézegető
 
         private void okBtn_Click(object sender, EventArgs e)
         {
-            
-            Value.advancedQuery = queryBoxTxt.Text;
-            Nezegeto.cb.Checked = true;
-            isBtnClicked = true;
-            Nezegeto.btn.Enabled = true;
-            this.Close();
+            if (!String.IsNullOrEmpty(queryBoxTxt.Text))
+            {
+                Value.advancedQuery = queryBoxTxt.Text;
+                Nezegeto.cb.Checked = true;
+                isBtnClicked = true;
+                Nezegeto.btn.Enabled = true;
+                this.Close();
+            }
+            else 
+            {
+                Value.advancedQuery = queryBoxTxt.Text;
+                Nezegeto.cb.Checked = false;
+                isBtnClicked = true;
+                Nezegeto.btn.Enabled = true;
+                this.Close();
+            }
         }
 
         private void AdvancedQuery_Load(object sender, EventArgs e)

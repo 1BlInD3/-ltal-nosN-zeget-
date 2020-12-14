@@ -142,6 +142,7 @@
             this.orderList.Name = "orderList";
             this.orderList.Size = new System.Drawing.Size(190, 264);
             this.orderList.TabIndex = 6;
+            this.orderList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.orderList_MouseDoubleClick);
             // 
             // selectColumn
             // 
@@ -201,7 +202,8 @@
             this.datumList.Name = "datumList";
             this.datumList.Size = new System.Drawing.Size(190, 124);
             this.datumList.TabIndex = 11;
-            this.datumList.SelectedIndexChanged += new System.EventHandler(this.datumList_SelectedIndexChanged);
+            this.datumList.Click += new System.EventHandler(this.datumList_Click);
+            this.datumList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.datumList_MouseDoubleClick);
             // 
             // label1
             // 
@@ -333,7 +335,6 @@
             this.advancedBox.TabIndex = 23;
             this.advancedBox.Text = "Haladó lekérdezés";
             this.advancedBox.UseVisualStyleBackColor = true;
-            this.advancedBox.CheckedChanged += new System.EventHandler(this.advancedBox_CheckedChanged);
             this.advancedBox.Click += new System.EventHandler(this.advancedBox_Click);
             // 
             // Nezegeto

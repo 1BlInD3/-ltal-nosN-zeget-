@@ -293,8 +293,18 @@ namespace Általános_nézegető
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            Thread t = new Thread(new ThreadStart(StartForm));
+            try
+            {
+                t.Start();
+                RefreshGrid(connString, /*"SELECT * FROM " + tableList.Text*/BuildQuery());
+                t.Abort();
+            }
+            catch(Exception exception)
+            {
+                MessageBox.Show(exception.ToString());
+            }
             
-            RefreshGrid(connString, /*"SELECT * FROM " + tableList.Text*/BuildQuery());
             
         }
         private void ShowColumns(string connection, string query)
@@ -598,12 +608,6 @@ namespace Általános_nézegető
             toDate.Value = DateTime.Now;
             tableName = viewBox.Text;
         }
-        private void datumList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            fromDate.Enabled = true;
-            toDate.Enabled = true;
-            setDayCheck.Enabled = true;
-        }
         private static string getBetween(string strSource, string strStart, string strEnd)
         {
             if (strSource.Contains(strStart) && strSource.Contains(strEnd))
@@ -640,20 +644,6 @@ namespace Általános_nézegető
             }
 
         }
-        private void advancedBox_CheckedChanged(object sender, EventArgs e)
-        {
-            //if (advancedBox.Checked == true)
-            //{
-            //    updateBtn.Enabled = true;
-            //    AdvancedQuery advancedQuery = new AdvancedQuery();
-            //    advancedQuery.Show();
-            //}
-            //else 
-            //{
-            //    updateBtn.Enabled = false;
-            //}
-        }
-
         private void advancedBox_Click(object sender, EventArgs e)
         {
             if (advancedBox.Checked == false)
@@ -670,6 +660,23 @@ namespace Általános_nézegető
                 //updateBtn.Enabled = true;
                 advancedBox.Checked = true;
             }
+        }
+        private void datumList_Click(object sender, EventArgs e)
+        {
+            fromDate.Enabled = true;
+            toDate.Enabled = true;
+            setDayCheck.Enabled = true;
+        }
+        private void datumList_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            datumList.SelectedIndex = -1;
+            fromDate.Enabled = false;
+            toDate.Enabled = false;
+            setDayCheck.Enabled = false;
+        }
+        private void orderList_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            orderList.SelectedIndex = -1;
         }
     }
 }
