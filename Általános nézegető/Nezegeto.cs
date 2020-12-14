@@ -166,6 +166,7 @@ namespace Általános_nézegető
         }
         private void tableList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            table.Clear();
             Thread t = new Thread(new ThreadStart(StartForm));
             t.Start();
             updateBtn.Enabled = false;
@@ -518,6 +519,7 @@ namespace Általános_nézegető
             advancedBox.Checked = false;
             fromDate.Enabled = false;
             toDate.Enabled = false;
+            table.Clear();
         }
         private void CopyToClipBoard(DataGridView dataGrid)
         {
